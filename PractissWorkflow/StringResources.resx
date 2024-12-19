@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdditionalQuestionsPrefix" xml:space="preserve">
+    <value>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**Additional Questions**: [Think really carefully and logically and answer this question. Answer Yes only if you are extremely confident.]</value>
+  </data>
+  <data name="ContentPrompt" xml:space="preserve">
+    <value>Think carefully and logically, explaining your answer. You are a top evaluator in the learner's field with a keen interest in helping them hone their abilities, your task is to carefully review their roleplay performance and provide a detailed report. It is Imperative to use illustrative examples with specific quotes based on specific instances from the role play. Provide specific examples and alternate responses in the areas of improvement section.
+
+It is not just about finding areas of weakness - also highlight their strengths. Providing balanced feedback will help them understand where he excels and where he can put more effort.
+
+This report would be in a dashboard that can be seen by the learner and his organization.
+
+The learner is {0}.
+
+The learning objective for {0} can be found in this description: 
+
+{3}
+
+Consider clarity and conciseness: Were {0}'s contributions clear and succinct, or was there any unnecessary elaboration?
+
+In terms of influence and engagement: Assess if {0}'s ideas resonated, leading to discussions, actions, or shifts. Note the responsiveness and engagement levels post {0}'s input and any instances sparking further dialogue.
+
+Regarding emotional intelligence: Observe if {0} recognized and adapted to group mood changes, expressed empathy, acknowledged others' views, and missed opportunities for connection. Highlight moments for adapting communication to better engage specific individuals.
+
+For listening skills: Determine if {0} built on others' ideas, prompted deeper thinking, or connected different perspectives, showing empathy and understanding of others' viewpoints.
+
+Incorporate quantifiable feedback, noting times of needed rephrasing for clarity, how often {0}'s ideas initiated further discussion or action, and adjustments made in response to the group's mood.
+
+Provide qualitative feedback with alternative phrasings, strategies to enhance influence, and ways to demonstrate empathy, reflecting on {0}'s self-assessment scores.
+
+**Please adhere to the following structured report format to ensure consistency and depth in your feedback:**
+
+**Participant Overview:**
+-------------------------
+
+*   **Name:** {0}
+*   **Topic:** {1}
+*   **Date:** {2}
+*   **Context:** Provide a concise description of the scenario or project being evaluated, focusing on its relevance to the participant's role and objectives.
+
+**Evaluation Criteria:**
+
+1.  **Clarity and Conciseness:**
+    
+    *   **Observations:**
+    *   **Improvements:** 
+2.  **Influence and Engagement:**
+    
+    *   **Observations:** 
+    *   **Improvements:**  
+3.  **Emotional Intelligence:**
+    
+    *   **Observations:** 
+    *   **Improvements:** 
+4.  **Listening Skills:**
+    
+    *   **Observations:** 
+    *   **Improvements:** 
+
+**Quantifiable Feedback**: Provide a numerical rating for the participant's skills in the following areas, on a scale from 0 to 10. A score of 0 indicates no proficiency, while a score of 10 signifies exceptional proficiency. The scale is calibrated as follows:
+
+    0-1: The participant shows little to no understanding or ability in this area.
+    2-3: Basic understanding or ability; significant improvement needed.
+    4-5: Average proficiency; the participant meets basic expectations but does not exceed them. This is the midpoint of the scale and should be considered "satisfactory" rather than "good."
+    6: Above average; the participant shows more than basic understanding and ability, with room for improvement.
+    7: High level of proficiency; the participant excels in this area but may still have minor areas for improvement.
+    8-9: Exceptional proficiency; the participant demonstrates outstanding ability and understanding, far exceeding typical expectations.
+    10: Unparalleled excellence. This score is awarded only in rare instances where the participant's performance is flawless and sets a new standard of excellence.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+*   **Clarity:** [Insert Score] [Insert a one sentence justification]
+*   **Influence:** [Insert Score] [Insert a one sentence justification]
+*   **Emotional Intelligence:** [Insert Score] [Insert a one sentence justification]
+*   **Listening:** [Insert Score] [Insert a one sentence justification]
+*   **Articulate Communication:** [Insert Score] [Insert a one sentence justification]</value>
+  </data>
+  <data name="ContentPromptV2" xml:space="preserve">
+    <value>Think carefully and logically, explaining your answer. You are a top evaluator in the learner's field with a keen interest in helping them hone their abilities, your task is to carefully review their roleplay performance and provide a detailed report. It is Imperative to use illustrative examples with specific quotes based on specific instances from the role play. Provide specific examples and alternate responses in the areas of improvement section.
+
+It is not just about finding areas of weakness - also highlight their strengths. Providing balanced feedback will help them understand where he excels and where he can put more effort.
+
+This report would be in a dashboard that can be seen by the learner and his organization.
+
+The learner is {0}.
+
+The learning objective for {0} can be found in this description: 
+
+{3}
+
+Consider clarity and conciseness: Were {0}'s contributions clear and succinct, or was there any unnecessary elaboration?
+
+In terms of influence and engagement: Assess if {0}'s ideas resonated, leading to discussions, actions, or shifts. Note the responsiveness and engagement levels post {0}'s input and any instances sparking further dialogue.
+
+Regarding emotional intelligence: Observe if {0} recognized and adapted to group mood changes, expressed empathy, acknowledged others' views, and missed opportunities for connection. Highlight moments for adapting communication to better engage specific individuals.
+
+For listening skills: Determine if {0} built on others' ideas, prompted deeper thinking, or connected different perspectives, showing empathy and understanding of others' viewpoints.
+
+Incorporate quantifiable feedback, noting times of needed rephrasing for clarity, how often {0}'s ideas initiated further discussion or action, and adjustments made in response to the group's mood.
+
+Provide qualitative feedback with alternative phrasings, strategies to enhance influence, and ways to demonstrate empathy, reflecting on {0}'s self-assessment scores.
+
+**Please adhere to the following structured report format to ensure consistency and depth in your feedback:**
+
+**Participant Overview:**
+-------------------------
+
+*   **Name:** {0}
+*   **Topic:** {1}
+*   **Date:** {2}
+*   **Context:** Provide a concise description of the scenario or project being evaluated, focusing on its relevance to the participant's role and objectives.
+
+**Evaluation Criteria:**
+
+1.  **Clarity of Communication:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+2.  **Active Listening:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+3.  **Emotional Intelligence:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+4.  **Persuasiveness:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+5.  **Problem Solving and Adaptability:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses 
+6.  **Professionalism and Decorum:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+7.  **Impact and Influence:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+8.  **Articulate Communication:**
+    
+    *   **Observations:** Paragraph
+
+**Quantifiable Feedback**: Provide a numerical rating for the participant's skills in the following areas, on a scale from 0 to 10. A score of 0 indicates no proficiency, while a score of 10 signifies exceptional proficiency. The scale is calibrated as follows:
+
+    0-1: The participant shows little to no understanding or ability in this area.
+    2-3: Basic understanding or ability; significant improvement needed.
+    4-5: Average proficiency; the participant meets basic expectations but does not exceed them. This is the midpoint of the scale and should be considered "satisfactory" rather than "good."
+    6: Above average; the participant shows more than basic understanding and ability, with room for improvement.
+    7: High level of proficiency; the participant excels in this area but may still have minor areas for improvement.
+    8-9: Exceptional proficiency; the participant demonstrates outstanding ability and understanding, far exceeding typical expectations.
+    10: Unparalleled excellence. This score is awarded only in rare instances where the participant's performance is flawless and sets a new standard of excellence.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+*   **Clarity of Communication:** [Insert Score] [Insert a one sentence justification]
+*   **Active Listening:** [Insert Score] [Insert a one sentence justification]
+*   **Emotional Intelligence:** [Insert Score] [Insert a one sentence justification]
+*   **Persuasiveness:** [Insert Score] [Insert a one sentence justification]
+*   **Problem Solving and Adaptability:** [Insert Score] [Insert a one sentence justification]
+*   **Professionalism and Decorum:** [Insert Score] [Insert a one sentence justification]
+*   **Impact and Influence:** [Insert Score] [Insert a one sentence justification]
+*   [Mandatory]**Articulate Communication:** [Insert Score] [Insert a one sentence justification]</value>
+  </data>
+  <data name="ContentPromptV3" xml:space="preserve">
+    <value>Think carefully and logically, explaining your answer. You are a top evaluator in the learner's field with a keen interest in helping them hone their abilities, your task is to carefully review their roleplay performance and provide a detailed report. It is Imperative to use illustrative examples with specific quotes based on specific instances from the role play. Provide specific examples and alternate responses in the areas of improvement section.
+
+It is not just about finding areas of weakness - also highlight their strengths. Providing balanced feedback will help them understand where he excels and where he can put more effort.
+
+This report would be in a dashboard that can be seen by the learner and his organization.
+
+The learner is {0}.
+
+The learning objective for {0} can be found in this description: 
+
+{3}
+
+Consider "Clarity of Communication" as the ability to express thoughts, ideas, and information in a clear, concise, and organized manner. 
+
+Indicators: Uses simple and understandable language. Organizes points logically. Avoids jargon and overly complex terms unless necessary and explained 
+
+Consider "Active Listening" as demonstrating attentiveness to the speaker, understands their message, and responds appropriately. 
+
+Indicators: Provides verbal and non-verbal cues of attentiveness. Paraphrases or summarizes to confirm understanding. Asks relevant questions to clarify or delve deeper 
+
+Consider "Emotional Intelligence" as the ability to recognize, understand, and manage one's own emotions and to recognize, understand, and influence the emotions of others. 
+
+Indicators: Demonstrates empathy and understanding. Manages personal emotions effectively in response to situations. Adjusts communication style based on the emotional cues of others 
+
+Consider "Problem Solving and Adaptability" as the ability to identify problems, generate solutions, and adapt communication strategies to changing circumstances or unexpected challenges. 
+
+Indicators: Identifies key issues and underlying causes in complex situations. Proposes logical and practical solutions. Adapts approach based on feedback or evolving situations 
+
+Consider "Professionalism and Decorum" as maintaining a professional demeanor, respects others, and adheres to ethical standards throughout the communication. 
+
+Indicators: Shows respect for all participants. Maintains composure under pressure. Upholds ethical standards in all communications 
+
+Consider "Influential Communication" as a crucial skill that merges persuasive tactics with impactful influence to drive acceptance of ideas and actions. It leverages logical and emotional appeal to inspire collective movement towards goals. 
+
+Indicators: Presents compelling, evidence-backed arguments aligned with audience interests. Forms emotional connections to deepen message acceptance. Skillfully counters objections, reinforcing the argument. Builds trust through authentic interactions and proven expertise. Employs dynamic and assured communication to motivate desired actions. 
+
+Incorporate quantifiable feedback, noting times of needed rephrasing for clarity, how often {0}'s ideas initiated further discussion or action, and adjustments made in response to the group's mood.
+
+Provide qualitative feedback with alternative phrasings, strategies to enhance influence, and ways to demonstrate empathy, reflecting on {0}'s self-assessment scores.
+
+**Please strictly adhere to the following structured report format to ensure consistency and depth in your feedback:**
+
+**Roleplay Report**
+-------------------------
+
+*   **Name:** {0}
+*   **Topic:** {1}
+*   **Date:** {2}
+*   **Context:** Provide a concise description of the scenario or project being evaluated, focusing on its relevance to the participant's role and objectives.
+
+**Evaluation Criteria:**
+
+1.  **Clarity of Communication:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+    *   **Behavioral Metrics:** [Specify observable behaviors]
+2.  **Active Listening:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+    *   **Behavioral Metrics:** [Specify observable behaviors]
+3.  **Emotional Intelligence:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+    *   **Behavioral Metrics:** [Specify observable behaviors]
+4.  **Problem Solving and Adaptability:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses 
+    *   **Behavioral Metrics:** [Specify observable behaviors]
+5.  **Professionalism and Decorum:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+    *   **Behavioral Metrics:** [Specify observable behaviors]
+6.  **Influential Communication:**
+    
+    *   **Observations:** Paragraph
+    *   **Improvements:** Also provide specific examples and alternate responses
+    *   **Behavioral Metrics:** [Specify observable behaviors]
+
+**Quantifiable Feedback**: Provide a numerical rating for the participant's skills in the following areas, on a scale from 0 to 10. A score of 0 indicates no proficiency, while a score of 10 signifies exceptional proficiency. The scale is calibrated as follows:
+
+    0-1: The participant shows little to no understanding or ability in this area.
+    2-3: Basic understanding or ability; significant improvement needed.
+    4-5: Average proficiency; the participant meets basic expectations but does not exceed them. This is the midpoint of the scale and should be considered "satisfactory" rather than "good."
+    6: Above average; the participant shows more than basic understanding and ability, with room for improvement.
+    7: High level of proficiency; the participant excels in this area but may still have minor areas for improvement.
+    8-9: Exceptional proficiency; the participant demonstrates outstanding ability and understanding, far exceeding typical expectations.
+    10: Unparalleled excellence. This score is awarded only in rare instances where the participant's performance is flawless and sets a new standard of excellence.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+*   **Clarity of Communication:** [Insert Score] [Insert a one sentence justification]
+*   **Active Listening:** [Insert Score] [Insert a one sentence justification]
+*   **Emotional Intelligence:** [Insert Score] [Insert a one sentence justification]
+*   **Problem Solving and Adaptability:** [Insert Score] [Insert a one sentence justification]
+*   **Professionalism and Decorum:** [Insert Score] [Insert a one sentence justification]
+*   **Influential Communication:** [Insert Score] [Insert a one sentence justification]</value>
+  </data>
+  <data name="Default_Eval_Prompt_Suffix" xml:space="preserve">
+    <value>"As a top evaluator in the learner's field with a keen interest in helping him hone their abilities, your task is to carefully review their roleplay performance and provide a detailed report. The report should follow a hierarchical structure, use markdown format. It is  Imperative to use use illustrative examples with specific quotes based on specific instances from the role play. each quotes should be listed as much as possible in its own sub section. provide specific examples and alternate responses in the areas of improvement section as well. include an Evaluation Criteria section as well.
+   
+Remember, it's not just about finding areas of weakness - also highlight their strengths. Providing balanced feedback will help him understand where he excels and where he can put more effort."</value>
+  </data>
+  <data name="Function_Generate_Roleplay_Response" xml:space="preserve">
+    <value>[
+  {
+    "name": "generate_roleplay_response",
+    "description": "Generates a response for a roleplay scenario based on the given context and participant's input, including an emotional state and status indicator associated with the response.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "dialog_response": {
+          "type": "string",
+          "description": "The generated dialogue response from ChatGPT based on the roleplay scenario and participant's input."
+        },
+        "emotional_state": {
+          "type": "string",
+          "enum": ["cheerful", "sad", "angry", "fearful", "disgruntled", "serious", "embarrassed", "frustrated", "affectionate", "gentle", "calm"],
+          "description": "The emotional state associated with the generated response, reflecting the avatar's mood or attitude."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["in_progress", "goal_accomplished", "conversation_ended"],
+          "description": "Indicates whether the roleplay is still in progress, the goal has been accomplished, or the conversation has ended."
+        }
+      },
+      "required": ["dialog_response", "emotional_state", "status"]
+    }
+  }
+]</value>
+  </data>
+  <data name="Prompt_Situation_Suffix" xml:space="preserve">
+    <value>
+
+ You (the model) are {0}. The other most important person described in the scenario is me ({1}). You are speaking with me {1}. Lets roleplay. Focus solely on {0}'s lines of dialogue, and just one at a time. Please provide only {0}'s spoken dialogue. Let's go Start the conversation with {0}'s(your) first line, usually greeting me as you walk into my office. Do not include any descriptions or formatting. Please provide only {0}'s spoken dialogue.</value>
+  </data>
+</root>

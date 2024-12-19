@@ -1,0 +1,480 @@
+@page "{reportId}"
+@using PractissWeb.Services
+@model Common.ReportDetailsModel
+@{
+    var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+    var feedbackJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Report.CurrentFeedback);
+}
+@inject MarkdownService MarkdownService
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/apex-charts/apex-charts.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/apex-charts/apexcharts.dist.js"></script>
+}
+
+@section PageScripts {
+    <script>
+        // Define alertOnError in the global scope
+        var alertOnError = '@alertOnError' === "true";
+        var preloadedFeedback = @Html.Raw(feedbackJson);
+        var reportCardBodyIndex = @Model.Report.AdditionalQuestions.Count== 0 ? 3 : 4;
+    </script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-common-reportdetails.js")"></script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-common-analytics.js")"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/css/pages/reportdetails.css">
+}
+
+<input type="hidden" id="feedbackIndex" value="">
+<input type="hidden" id="userId" value="@Model.UserId">
+<input type="hidden" id="reportId" value="@Model.Report.Id">
+<input type="hidden" id="cardBodyIndex" value="0">
+
+@if (Model.Report.QuantitativeFeedbackV3 != null)
+{
+    <!-- V3 Quantitative Feedback -->
+    <div class="row equal-height-cards">
+        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-4">
+            <div class="card" id="quantitativeFeedbackSection">
+                <div class="card-body">
+                    <ul class="p-0 m-0">
+                        <!-- Clarity of Communication -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication == -1 ? "bg-label-secondary" : "bg-label-primary")"><i class='bx bx-comment-detail'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Clarity of Communication</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication == -1 ? "bg-secondary" : "bg-primary")" style="width: @(Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication == -1 ? "0" : Model.Report.QuantitativeFeedbackV3.ClarityOfCommunication * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <!-- Indicators: Uses simple language, Organizes logically, Avoids jargon -->
+                        </li>
+
+                        <!-- Active Listening -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV3.ActiveListening == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV3.ActiveListening == -1 ? "bg-label-secondary" : "bg-label-success")"><i class='bx bx-headphone'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Active Listening</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV3.ActiveListening == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV3.ActiveListening}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV3.ActiveListening == -1 ? "bg-secondary" : "bg-success")" style="width: @(Model.Report.QuantitativeFeedbackV3.ActiveListening == -1 ? "0" : Model.Report.QuantitativeFeedbackV3.ActiveListening * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <!-- Indicators: Cues of attentiveness, Paraphrases, Asks questions -->
+                        </li>
+
+                        <!-- Emotional Intelligence -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence == -1 ? "bg-label-secondary" : "bg-label-info")"><i class='bx bx-heart'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Emotional Intelligence</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence == -1 ? "bg-secondary" : "bg-info")" style="width: @(Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence == -1 ? "0" : Model.Report.QuantitativeFeedbackV3.EmotionalIntelligence * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <!-- Indicators: Demonstrates empathy, Manages emotions, Adjusts communication -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-4">
+            <div class="card" id="quantitativeFeedbackSection2">
+                <div class="card-body">
+                    <ul class="p-0 m-0">
+                        <!-- Problem-Solving and Adaptability -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability == -1 ? "bg-label-secondary" : "bg-label-danger")"><i class='bx bx-wrench'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Problem Solving and Adaptability</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability == -1 ? "bg-secondary" : "bg-danger")" style="width: @(Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability == -1 ? "0" : Model.Report.QuantitativeFeedbackV3.ProblemSolvingAndAdaptability * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <!-- Indicators: Identifies issues, Proposes solutions, Adapts approach -->
+                        </li>
+
+                        <!-- Professionalism and Decorum -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum == -1 ? "bg-label-secondary" : "bg-label-success")"><i class='bx bx-user'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Professionalism and Decorum</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum == -1 ? "bg-secondary" : "bg-success")" style="width: @(Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum == -1 ? "0" : Model.Report.QuantitativeFeedbackV3.ProfessionalismAndDecorum * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <!-- Indicators: Shows respect, Maintains composure, Upholds ethics -->
+                        </li>
+
+                        <!-- Influential Communication -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV3.InfluentialCommunication == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV3.InfluentialCommunication == -1 ? "bg-label-secondary" : "bg-label-warning")"><i class='bx bx-microphone'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Influential Communication</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV3.InfluentialCommunication == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV3.InfluentialCommunication}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV3.InfluentialCommunication == -1 ? "bg-secondary" : "bg-warning")" style="width: @(Model.Report.QuantitativeFeedbackV3.InfluentialCommunication == -1 ? "0" : Model.Report.QuantitativeFeedbackV3.InfluentialCommunication * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <!-- Indicators: Presents evidence, Forms emotional connections, Counters objections, Builds trust, Employs dynamic communication -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-4" id="overallScoreSection">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    @if (Model.OverallScorePercentage == 0)
+                    {
+                        <span>Roleplay was too short to provide an overall rating</span>
+                    }
+                    else if (Model.OverallScorePercentage < 60 || Model.QuestionsAnsweredPercentage < 100)
+                    {
+                        <img src="/img/practiss/OverallScoreDeveloping.png" height="180" width="320" />
+                    }
+                    else if (Model.OverallScorePercentage * Model.QuestionsAnsweredPercentage < 7000)
+                    {
+                        <img src="/img/practiss/OverallScoreProficient.png" height="180" width="320" />
+                    }
+                    else
+                    {
+                        <img src="/img/practiss/OverallScoreFluent.png" height="180" width="320" />
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <!-- V2 Quantitative Feedback -->
+    <div class="row equal-height-cards">
+        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-4">
+            <div class="card" id="quantitativeFeedbackSection">
+                <div class="card-body">
+                    <ul class="p-0 m-0">
+                        <!-- Clarity of Communication -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication == -1 ? "bg-label-secondary" : "bg-label-primary")"><i class='bx bx-comment-detail'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Clarity of Communication</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication == -1 ? "bg-secondary" : "bg-primary")" style="width: @(Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.ClarityOfCommunication * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Active Listening -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.ActiveListening == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.ActiveListening == -1 ? "bg-label-secondary" : "bg-label-success")"><i class='bx bx-headphone'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Active Listening</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.ActiveListening == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.ActiveListening}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.ActiveListening == -1 ? "bg-secondary" : "bg-success")" style="width: @(Model.Report.QuantitativeFeedbackV2.ActiveListening == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.ActiveListening * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Emotional Intelligence -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence == -1 ? "bg-label-secondary" : "bg-label-info")"><i class='bx bx-heart'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Emotional Intelligence</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence == -1 ? "bg-secondary" : "bg-info")" style="width: @(Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.EmotionalIntelligence * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Persuasiveness -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.Persuasiveness == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.Persuasiveness == -1 ? "bg-label-secondary" : "bg-label-warning")"><i class='bx bx-user-voice'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Persuasiveness</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.Persuasiveness == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.Persuasiveness}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.Persuasiveness == -1 ? "bg-secondary" : "bg-warning")" style="width: @(Model.Report.QuantitativeFeedbackV2.Persuasiveness == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.Persuasiveness * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-4">
+            <div class="card" id="quantitativeFeedbackSection2">
+                <div class="card-body">
+                    <ul class="p-0 m-0">
+                        <!-- ProblemSolving and Adaptability -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability == -1 ? "bg-label-secondary" : "bg-label-danger")"><i class='bx bx-wrench'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Problem Solving and Adaptability</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability == -1 ? "bg-secondary" : "bg-danger")" style="width: @(Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.ProblemSolvingAndAdaptability * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Professionalism and Decorum -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum == -1 ? "bg-label-secondary" : "bg-label-success")"><i class='bx bx-user'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Professionalism and Decorum</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum == -1 ? "bg-secondary" : "bg-success")" style="width: @(Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.ProfessionalismAndDecorum * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Impact and Influence -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence == -1 ? "bg-label-secondary" : "bg-label-info")"><i class='bx bx-group'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Impact and Influence</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence == -1 ? "bg-secondary" : "bg-info")" style="width: @(Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.ImpactAndInfluence * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Articulate Communication -->
+                        <li class="d-flex mb-4 pb-2 @(Model.Report.QuantitativeFeedbackV2.ArticulateCommunication == -1 ? "text-muted" : "")">
+                            <div class="avatar avatar-sm flex-shrink-0 me-3">
+                                <span class="avatar-initial rounded-circle @(Model.Report.QuantitativeFeedbackV2.ArticulateCommunication == -1 ? "bg-label-secondary" : "bg-label-warning")"><i class='bx bx-microphone'></i></span>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Articulate Communication</span>
+                                    <span>@(Model.Report.QuantitativeFeedbackV2.ArticulateCommunication == -1 ? "N/A" : $"{Model.Report.QuantitativeFeedbackV2.ArticulateCommunication}/10")</span>
+                                </div>
+                                <div class="progress" style="height:6px;">
+                                    <div class="progress-bar @(Model.Report.QuantitativeFeedbackV2.ArticulateCommunication == -1 ? "bg-secondary" : "bg-warning")" style="width: @(Model.Report.QuantitativeFeedbackV2.ArticulateCommunication == -1 ? "0" : Model.Report.QuantitativeFeedbackV2.ArticulateCommunication * 10)%;" role="progressbar"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-4" id="overallScoreSection">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    @if (Model.OverallScorePercentage == 0 || Model.QuestionsAnsweredPercentage < 100)
+                    {
+                        <span>Roleplay was too short to provide an overall rating</span>
+                    }
+                    else if (Model.OverallScorePercentage < 60 || Model.QuestionsAnsweredPercentage < 100)
+                    {
+                        <img src="/img/practiss/OverallScoreDeveloping.png" height="180" width="320" />
+                    }
+                    else if (Model.OverallScorePercentage * Model.QuestionsAnsweredPercentage < 7000)
+                    {
+                        <img src="/img/practiss/OverallScoreProficient.png" height="180" width="320" />
+                    }
+                    else
+                    {
+                        <img src="/img/practiss/OverallScoreFluent.png" height="180" width="320" />
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@if (Model.Report.AdditionalQuestions.Count > 0)
+{
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        @foreach (var question in Model.Report.AdditionalQuestions)
+                        {
+                            <li class="mb-3 d-flex align-items-center">
+                                <strong class="me-2">@question.Key.Replace("the participant", Model.Report.ModuleAssignment.Learner.FirstName).Replace("participant", Model.Report.ModuleAssignment.Learner.FirstName):</strong>
+                                @{
+                                    var iconClass = question.Value ? "bx bx-check-circle text-success" : "bx bx-x-circle text-danger";
+                                    var answerText = question.Value ? "Yes" : "No";
+                                }
+                                <i class="@iconClass" aria-hidden="true"></i> <span class="ms-2">@answerText</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Report.MarkdownV3 != null)
+{
+    <!-- Card for Markdown Report V3 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div>
+                @Html.Raw(MarkdownService.ConvertMarkdownToHtml(@Model.Report.MarkdownV3.Replace("**Participant Overview:**", "**Roleplay Report**")))
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Card for Markdown Report V2 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div>
+                @Html.Raw(MarkdownService.ConvertMarkdownToHtml(@Model.Report.MarkdownV2.Replace("**Participant Overview:**", "**Roleplay Report**")))
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="col-12">
+    <!-- Card for Markdown Conversation -->
+    <div class="card mb-4 markdown-conversation">
+        <div class="card-body">
+            <h4 class="d-flex align-items-center mt-2 mb-4">Roleplay Conversation</h4>
+            @{
+                var conversationMarkdown = MarkdownService.ConvertConversationToMarkdown(@Model.Report.Conversation);
+                var conversationHtml = MarkdownService.ConvertMarkdownToHtml(conversationMarkdown);
+                var conversationWithClasses = MarkdownService.AddSpeakerClassesAndNamesToHtml(conversationHtml);
+            }
+            @Html.Raw(conversationWithClasses)
+        </div>
+    </div>
+
+</div>
+
+<!-- Chat/Feedback Overlay -->
+<div id="chatOverlay" class="chat-overlay" onclick="toggleChat()"></div>
+
+<!-- Chat/Feedback Popup -->
+<div id="chatFeedbackPopup" class="chat-popup">
+    <div class="chat-header bg-primary text-white p-2 d-flex align-items-center justify-content-between">
+        <h5 class="mb-0">Feedback</h5>
+        <button onclick="toggleChat()" class="close-btn">&times;</button>
+    </div>
+    <div class="chat-content p-3">
+        <textarea id="feedbackText" class="form-control mb-2" placeholder="Enter your feedback here..." rows="3"></textarea>
+        <button onclick="submitFeedback()" class="btn btn-primary">Save</button>
+    </div>
+</div>
+
+@if (Model.Email.Contains("@practiss.ai"))
+{
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row gy-3">
+                    <div class="col-lg-4">
+                        <div>
+                            <button type="button" id="regenerateReportButton" class="btn btn-primary" onclick="regenerateReport('@Model.Report.Id')">
+                                Regenerate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" asp-page-handler="Tag">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row gy-3">
+                        <div class="col-lg-8">
+                            <!-- Adjusted for overall alignment -->
+                            <div class="row">
+                                <!-- Set both input and button to occupy 4 columns at large screen sizes -->
+                                <div class="col-lg-4 mb-3">
+                                    <input asp-for="Report.Tag" type="text" class="form-control" id="tagTextbox" />
+                                </div>
+                                <div class="col-lg-4 d-flex align-items-end mb-3">
+                                    <button type="submit" id="addTagButton" class="btn btn-primary">Add Tag</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+} 

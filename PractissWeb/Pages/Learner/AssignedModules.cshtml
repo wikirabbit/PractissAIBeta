@@ -1,0 +1,68 @@
+@page
+@model PractissWeb.Pages.Learner.AssignedModulesModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-learner-modules.js")"></script>
+}
+
+<div class="card mb-3">
+  <h5 class="card-header">Assigned Roleplays</h5>
+  @if(Model.ModuleAssignments.Count() == 0)
+	{
+		<div class="card-body">
+			<div>
+				<p>You currently have no assigned roleplays. When your coach assigns a roleplay to you, it will appear here. If you are not working with a coach, feel free to explore the <a href="/Common/ModuleExplorer">Public Scenarios</a> page to find a roleplay that best matches your interests and learning goals.</p>
+			</div>
+		</div>
+	}
+
+  <div class="card table-responsive">
+  <table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" >
+	  <thead>
+		  <tr>
+			  <th class="sorting" aria-label="Coach">Coach</th>
+			  <th class="sorting" aria-label="Module">Module</th>
+			  <th class="sorting" aria-label="Interact">Interact</th>
+		  </tr>
+	  </thead>
+	  <tbody>
+			@foreach (var moduleAssignment in Model.ModuleAssignments)
+			{
+				<tr>
+					<td>
+						<div class="d-flex justify-content-start align-items-center user-name">
+							<div class="avatar-wrapper">
+								<div class="avatar avatar-sm me-3">
+									<img src="data:image/png;base64,@moduleAssignment.Module.Avatar.Image" alt="Avatar" class="rounded-circle">
+								</div>
+							</div>
+							<div class="d-flex flex-column">
+								<span class="fw-semibold">@moduleAssignment.Coach.FirstName @moduleAssignment.Coach.LastName</span>
+								<small class="text-muted">@moduleAssignment.Coach.Email</small>
+							</div>
+						</div>
+					</td>
+					<td><span>@moduleAssignment.Module.Title</span></td>
+					<td>
+						<!-- Actions (e.g., Start Module) -->
+						<div class="d-inline-block text-nowrap">
+							<button type="button" class="btn rounded-pill btn-label-primary" title="Start Roleplay" onclick="startRoleplay('@Model.Mode', '@moduleAssignment.Id')">
+								<span class="tf-icons bx bx-play"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+	  </tbody>
+  </table>
+</div>
+</div>
+

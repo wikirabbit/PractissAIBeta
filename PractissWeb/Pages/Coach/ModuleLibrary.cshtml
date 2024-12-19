@@ -1,0 +1,112 @@
+@page
+@model PractissWeb.Pages.Coach.ModuleLibraryModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-modulelibrary.js")"></script>
+}
+
+
+
+<div class="col-12">
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="row gy-3">
+				<div class="col-lg-4">
+					<div>
+						<button type="button" class="btn btn-primary" onclick="createNewModule()">
+							<span class="tf-icons bx bx-plus me-1"></span>Create Roleplay Scenario
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card mb-3">
+	<h5 class="card-header">Authored Roleplay Scenarios</h5>
+	<div class="card-body">
+		<div>
+			<div class="col-12">
+				<div class="col-12 col-sm-6 col-lg-4">
+					<label for="searchTextbox" class="form-label">Search:</label>
+					<input type="search" class="form-control" placeholder="search text" id="authoredModulesSearchTextbox" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card table-responsive">
+		<table class="table border-top no-footer table-responsive" style="overflow:auto" id="authoredModulesTable" aria-describedby="DataTables_Table_0_info">
+		<thead>
+			<tr>
+				<th aria-label="Title">Title</th>
+				<th aria-label="Actions">Manage</th>
+				<th aria-label="Actions">Interact</th>
+				<th aria-label="Visibility">Visibility</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var module in Model.Modules)
+			{
+				<tr>
+					<td><span>@module.Title</span></td>
+					<td>
+							<div class="d-flex">
+							<button type="button" class="btn rounded-pill btn-label-primary" title="Edit" onclick="editModule('@module.Id')"> 
+								<span class="tf-icons bx bx-edit"></span>
+							</button>
+							<button type="button" class="btn rounded-pill btn-label-primary mx-1" title="Manage" onclick="manageModule('@module.Id')">
+								<span class="tf-icons bx bx-cog"></span>
+							</button>
+							<form id="formCopyModule-@module.Id" method="POST" asp-page-handler="Copy" style="display: inline-block;">
+								<input type="hidden" name="moduleId" value="@module.Id" />
+								<button type="submit" class="btn rounded-pill btn-label-primary" title="Copy">
+									<span class="tf-icons bx bx-copy"></span>
+								</button>
+							</form>
+							<button type="button" class="btn rounded-pill btn-label-primary" title="Delete Module" data-module-id="@module.Id" onclick="showConfirmationModal('@module.Id')">
+								<span class="tf-icons bx bx-trash"></span>
+							</button>
+						</div>
+					</td>
+					<td>
+						<div>
+							<button type="button" class="btn rounded-pill btn-label-primary" title="Start Roleplay" onclick="demoModule('@Model.Mode', '@module.Id')">
+								<span class="tf-icons bx bx-play"></span>
+							</button>
+						</div>
+					</td>
+					<td><span>@module.Visibility</span></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Are you really sure? This action cannot be undone.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete Module</button>
+			</div>
+		</div>
+	</div>
+</div>

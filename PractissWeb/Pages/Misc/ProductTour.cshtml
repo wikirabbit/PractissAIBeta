@@ -1,0 +1,48 @@
+@page
+@model PractissWeb.Pages.Misc.ProductTourModel
+@{
+}
+
+@section PageScripts {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var video = document.getElementById('guideVideo');
+        var source = document.getElementById('videoSource');
+
+        // URL for the video to use on mobile devices
+        var mobileVideoUrl = "https://storage.googleapis.com/practiss_assets/product_tour_mobile.mp4";
+
+        // Check if the device width is less than or equal to 768px
+        if (window.innerWidth <= 768) {
+            // Change the video source to the mobile video
+            source.src = mobileVideoUrl;
+
+            // Load the new video source
+            video.load();
+        }
+
+        // Listen for the 'ended' event on the video
+        video.addEventListener('ended', function () {
+            // Redirect to another page when the video has finished playing
+            window.location.href = '@Model.NextPage';
+        });
+    });
+</script>
+}
+
+<div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="row justify-content-center">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="mb-3">2 Minute Guide</h2>
+                    <!-- Video player -->
+                    <video id="guideVideo" width="100%" controls>
+                        <source id="videoSource" src="https://storage.googleapis.com/practiss_assets/product_tour.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+@page
+@model PractissWeb.Pages.Misc.ContactUsModel
+@{
+}
+
+<div class="container-xxl ">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="row justify-content-center">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <!-- Display TempData message if present -->
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["Message"]
+                        </div>
+                    }
+                    <h2 class="mb-3">Contact Us</h2>
+                    <p>If you have any questions or feedback, feel free to get in touch. We're here to help!</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Your Message</label>
+                                    <textarea class="form-control" id="message" name="message" rows="10" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

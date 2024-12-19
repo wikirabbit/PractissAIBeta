@@ -1,0 +1,89 @@
+@page "{clientId}"
+@model PractissWeb.Pages.Coach.ClientSettingsModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-clientsettings.js")"></script>
+}
+
+<div class="card mb-4">
+	<div class="card-body">
+		<form id="formUserAdd" method="POST">
+			<div class="row">
+				<div class="col-md-12 mb-3">
+					<h5>Manage roleplay assignments for @Model.ClientName</h5>
+				</div>
+				<div>
+					<p>Assign roleplays directly to @Model.ClientName for an immersive and skill-building experience as soon as they access their account.</p>
+				</div>
+				<div class="col-md-5 mb-3">
+					<label for="moduleTextbox" class="form-label">Module</label>
+					<select asp-for="ModuleToAdd" class="form-select" id="moduleId" aria-label="Select a roleplay" onchange="updateSubmitButtonState()">
+						<option value="">Select a roleplay</option>
+						@foreach (var availableModule in Model.AvailableModules)
+						{
+							<option value="@availableModule.Id">@availableModule.Title</option>
+						}
+					</select>
+				</div>
+				<div class="col-md-3 d-flex align-items-end mb-3">
+					<button type="submit" id="addModuleButton" class="btn btn-primary" disabled>Assign Roleplay</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="card">
+	<table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0">
+		<thead>
+			<tr>
+				<th >Title</th>
+				<th >Sessions Completed</th>
+				<th >Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var assignedModule in Model.AssignedModules)
+			{
+				<tr>
+					<td><span>@assignedModule.Module.Title</span></td>
+					<td><span>@assignedModule.InteractionsAllowed</span></td>
+					<td>
+						<div>
+							<button type="button" class="btn rounded-pill btn-label-primary" title="Remove Assignment" data-module-id="@assignedModule.Module.Id" data-coach-id="@Model.CoachId" data-client-id="@Model.ClientId" onclick="showConfirmationModal('@Model.CoachId', '@assignedModule.Module.Id', '@Model.ClientId')">
+								<span class="tf-icons bx bx-trash"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Are you really sure? This action cannot be undone.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-danger" id="confirmDeleteButton">Remove Assignment</button>
+			</div>
+		</div>
+	</div>
+</div>

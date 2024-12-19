@@ -1,0 +1,82 @@
+@page
+@model PractissWeb.Pages.Coach.AvatarCreateModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-avatarcreate.js")"></script>
+}
+
+<div class="card mb-4">
+	<div class="card-body">
+		<form id="formAvatarCreate" method="POST">
+			<div class="row">
+				<div class="mb-3 col-12">
+					<label for="avatarNameTextbox" class="form-label">Avatar Name</label>
+					<input asp-for="AvatarName" type="text" class="form-control" id="avatarNameTextbox" onkeyup="updateSubmitButtonState()" />
+				</div>
+				<div class="row">
+				<div class="mb-3 col-md-10">
+					<label for="avatarImageDropDown" class="form-label">Avatar Image</label>
+					<select asp-for="AvatarImageCode" class="form-select" id="avatarImageDropDown" aria-label="Default select example" onchange="updateSubmitButtonState()">
+						<option value="">Select an Image</option>
+						<option value="cm">Caucasian Male</option>
+						<option value="cf">Caucasian Female</option>
+						<option value="hm">Hispanic Male</option>
+						<option value="hf">Hispanic Female</option>
+						@if(Model.ShowKidsAvatars)
+						{
+							<option value="cmk">Caucasian Male Kid</option>
+							<option value="cfk">Caucasian Female Kid</option>
+						}
+					</select>
+				</div>
+
+					<div class="col-md-2 d-flex align-items-center mb-3 mb-md-0">
+					  <img id="avatarImageDisplay" src="/img/avatars/reference-blank.png" alt="Avatar" class="rounded-circle me-3" width="60">
+				</div>
+				</div>
+				<div class="row">
+				<div class="mb-3 col-md-10">
+					<label for="avatarVoiceDropdown" class="form-label">Avatar Voice</label>
+					<select asp-for="AvatarVoice" class="form-select" id="avatarVoice" aria-label="Default select example" onchange="updateSubmitButtonState()">
+						<option value="">Select a voice</option>
+						<option value="matilda">Matilda</option>
+						<option value="michael">Michael</option>
+						@if (Model.ShowIntenseAvatars)
+						{
+							<option value="patrick-angry">Patrick-Angry</option>
+							<option value="nelly-angry">Nelly-Angry</option>
+						}
+						@if (Model.ShowKidsAvatars)
+						{
+							<option value="jamie">Jamie</option>
+							<option value="janiah">Janiah</option>
+						}
+					</select>
+				</div>
+
+					<div class="col-md-2 d-flex align-items-center mb-3 mb-md-0">
+						<button type="button" class="btn rounded-pill btn-icon btn-outline-primary d-flex" onclick="playAvatarVoice(document.getElementById('avatarVoice').value)">
+							<span class="tf-icons bx bx-play"></span>				
+						</button>
+					</div>
+				</div>
+				<div class="mt-2">
+					<button type="submit" class="btn btn-primary me-2" id="submitButton" disabled>Save changes</button>
+					<button type="reset" class="btn btn-label-secondary">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Hidden audio element -->
+<audio id="avatarAudio" src="~/audio/matilda-sample.mp3"></audio>
+

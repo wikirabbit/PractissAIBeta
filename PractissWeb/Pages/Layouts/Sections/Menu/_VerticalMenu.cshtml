@@ -1,0 +1,179 @@
+@using Microsoft.AspNetCore.Http
+
+@{
+  TempData.Keep();
+  string? currentPage = Convert.ToString(ViewContext.RouteData.Values["Page"])!;
+  string? userRoles = Context.Session.GetString("UserRoles");
+}
+
+<!-- Menu -->
+@* ! Do this simple *@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme border-end">
+
+  <div class="menu-inner-shadow"></div>
+
+	<ul class="menu-inner py-1">
+		<!-- Learner Section -->
+		@if (userRoles.Contains("learner") || userRoles.Contains("practissadmin"))
+		{
+			<li class="menu-header small fw-semibold">
+				<span class="menu-header-text">Learning Dashboard</span>
+			</li>
+			<li class='menu-item@(currentPage == "/Learner/AssignedModules" ? " active" : "")'>
+				<a asp-page="/Learner/AssignedModules" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-collection"></i>
+					<div data-i18n="Assigned Roleplays">Assigned Roleplays</div>
+				</a>
+			</li>
+			<li class='menu-item@(currentPage == "/Learner/BookmarkedModules" ? " active" : "")'>
+				<a asp-page="/Learner/BookmarkedModules" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-bookmarks"></i>
+					<div data-i18n="Bookmarked Roleplays">Bookmarked Roleplays</div>
+				</a>
+			</li>
+			<li class='menu-item@(currentPage == "/Common/ModuleExplorer" ? " active" : "")'>
+				<a asp-page="/Common/ModuleExplorer" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-search"></i>
+					<div data-i18n="Public Scenarios">Public Scenarios</div>
+				</a>
+			</li>
+			<li class='menu-item@(currentPage == "/Learner/History" ? " active" : "")'>
+				<a asp-page="/Learner/History" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-history"></i>
+					<div data-i18n="Roleplay Reports">Roleplay Reports</div>
+				</a>
+			</li>
+		}
+
+		<!-- Coach Section -->
+		@if (userRoles.Contains("designer") || userRoles.Contains("practissadmin"))
+			{
+				<!-- Designer -->
+				<li class="menu-divider mb-1"></li>
+				<li class="menu-header small fw-semibold">
+					<span class="menu-header-text">Content Creation</span>
+				</li>
+				<li class='menu-item@(currentPage == "/Coach/AvatarLibrary" ? " active" : "")'>
+					<a asp-page="/Coach/AvatarLibrary" class="menu-link">
+						<i class="menu-icon tf-icons bx bx-user-voice"></i>
+					<div data-i18n="Avatar Studio">Avatar Studio</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/Coach/ModuleLibrary" ? " active" : "")'>
+					<a asp-page="/Coach/ModuleLibrary" class="menu-link">
+						<i class="menu-icon tf-icons bx bx-collection"></i>
+					<div data-i18n="Roleplay Studio">Roleplay Studio</div>
+					</a>
+				</li>
+
+				<!-- Team -->
+				<li class="menu-divider mb-1"></li>
+				<li class="menu-header small fw-semibold">
+					<span class="menu-header-text">Manage Learners</span>
+				</li>
+				<li class='menu-item@(currentPage == "/Coach/ReportsSearch" ? " active" : "")'>
+					<a asp-page="/Coach/ReportsSearch" class="menu-link">
+						<i class="menu-icon tf-icons bx bx-search"></i>
+					<div data-i18n="Learner Reports">Learner Reports</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/Coach/Clients" ? " active" : "")'>
+					<a asp-page="/Coach/Clients" class="menu-link">
+						<i class="menu-icon tf-icons bx bxs-user-account"></i>
+					<div data-i18n="Learner Setup">Learner Setup</div>
+					</a>
+				</li>
+			}
+
+		<!-- Settings -->
+		@if (userRoles.Contains("learner") || userRoles.Contains("designer") || userRoles.Contains("practissadmin"))
+		{
+			<li class="menu-divider mb-1"></li>
+			<li class="menu-header small fw-semibold">
+				<span class="menu-header-text">Account</span>
+			</li>
+			<li class='menu-item@(currentPage == "/Common/Profile" ? " active" : "")'>
+				<a asp-page="/Common/Profile" class="menu-link">
+					<i class="menu-icon tf-icons bx bxs-user-detail"></i>
+					<div data-i18n="Profile">Profile</div>
+				</a>
+			</li>
+@* 			<li class='menu-item@(currentPage == "/Common/Billing" ? " active" : "")'>
+				<a asp-page="/Common/Billing" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-credit-card"></i>
+					<div data-i18n="Billing">Billing</div>
+				</a>
+			</li> *@
+			<li class='menu-item@(currentPage == "/Auth/Logout" ? " active" : "")'>
+				<a asp-page="/Auth/Logout" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-log-out"></i>
+					<div data-i18n="Logout">Logout</div>
+				</a>
+			</li>
+		}
+
+		<!-- Help -->
+		@if (userRoles.Contains("learner") || userRoles.Contains("designer") || userRoles.Contains("practissadmin"))
+		{
+			<li class="menu-divider mb-1"></li>
+			<li class="menu-header small fw-semibold">
+				<span class="menu-header-text">Support</span>
+			</li>
+			<li class='menu-item@(currentPage == "/Misc/ProductTour" ? " active" : "")'>
+				<a asp-page="/Misc/ProductTour" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-help-circle"></i>
+					<div data-i18n="Product Tour">Product Tour</div>
+				</a>
+			</li>
+			<li class='menu-item@(currentPage == "/Misc/ContactUs" ? " active" : "")'>
+				<a asp-page="/Misc/ContactUs" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-support"></i>
+					<div data-i18n="Contact Us">Contact Us</div>
+				</a>
+			</li>
+		}
+
+		@if (userRoles.Contains("practissadmin"))
+		{
+			<li class="menu-divider mb-1"></li>
+			<li class="menu-header small fw-semibold">
+				<span class="menu-header-text">Experimental</span>
+			</li>
+			<li class='menu-item@(currentPage == "/Learner/CommunicationInsights" ? " active" : "")'>
+				<a asp-page="/Learner/CommunicationInsights" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-bulb"></i>
+					<div data-i18n="Meeting Insights">Meeting Insights</div>
+				</a>
+			</li>
+
+			<!-- Admin -->
+			<li class="menu-divider mb-1"></li>
+			<li class="menu-header small fw-semibold">
+				<span class="menu-header-text">Admin</span>
+			</li>
+			<li class='menu-item@(currentPage == "/Admin/AllReports" ? " active" : "")'>
+				<a asp-page="/Admin/AllReports" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-search"></i>
+					<div data-i18n="All Reports">All Reports</div>
+				</a>
+			</li>
+			<li class='menu-item@(currentPage == "/Admin/Whitelist" ? " active" : "")'>
+				<a asp-page="/Admin/Whitelist" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-customize"></i>
+					<div data-i18n="Whitelist">Whitelist</div>
+				</a>
+			</li>
+		}
+
+		@if (userRoles.Contains("evaluator"))
+		{
+			<li class='menu-item@(currentPage == "/Evaluator/TaggedReports" ? " active" : "")'>
+				<a asp-page="/Evaluator/TaggedReports" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-search"></i>
+					<div data-i18n="Reports">Reports</div>
+				</a>
+			</li>
+		}
+	</ul>
+</aside>
+<!-- / Menu -->

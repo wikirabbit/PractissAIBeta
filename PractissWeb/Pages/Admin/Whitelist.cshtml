@@ -1,0 +1,195 @@
+@page
+@model WhitelistModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.dist.js"></script>
+    <script src="~/vendor/libs/bootstrap-select/bootstrap-select.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+}
+
+@section PageScripts {
+    <script>
+        // Define alertOnError in the global scope
+        var alertOnError = '@alertOnError' === "true";
+    </script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-admin-whitelist.js")"></script>
+    <script src="~/js/form-wizard-numbered.dist.js"></script>
+    <script src="~/js/form-wizard-validation.dist.js"></script>
+}
+
+<div class="col-12 mb-4">
+        <div class="bs-stepper wizard-numbered mt-2">
+            <div class="bs-stepper-header">
+                <div class="step" data-target="#add-learner">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Enroll Learners</span>
+                            <span class="bs-stepper-subtitle">Add a Learner</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#learner-email-input">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Learner Email</span>
+                            <span class="bs-stepper-subtitle">Provide Learner's Email</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#learner-name-confirmation">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Learner Name</span>
+                            <span class="bs-stepper-subtitle">Confirm Learner's Name</span>
+                        </span>
+                    </button>
+                </div>
+                </div>
+            <div class="bs-stepper-content">
+            <form id="addLearner" method="POST">
+                <!-- Add Learner -->
+                <div id="add-learner" class="content">
+                    <div class="content-header mb-3">
+                        <h6 class="mb-0">Add Learners</h6>
+                        <p>Add learners so you can assign them tailored roleplays for an engaging, skill-enhancing experience the moment they access their account.</p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-12 d-flex justify-content-between">
+                            <button class="btn btn-label-secondary btn-prev" type="button" disabled>
+                                <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                <span class="d-sm-inline-block d-none">Previous</span>
+                            </button>
+                            <button class="btn btn-primary btn-next" type="button"> <span class="d-sm-inline-block d-none">Next</span> <i class="bx bx-chevron-right bx-sm me-sm-n2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Learner Email -->
+                <div id="learner-email-input" class="content">
+                    <div class="content-header mb-3">
+                        <h6 class="mb-0">Provide Learner's Email</h6>
+                        <p>Enter the email address of the learner you wish to enroll in the roleplay. Our system will use this information to check if the learner already exists in our database.</p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input asp-for="EmailToAdd" type="text" id="emailField" class="form-control" />
+                            <span asp-validation-for="EmailToAdd" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 d-flex justify-content-between">
+                            <button class="btn btn-primary btn-prev" type="button">
+                                <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                <span class="d-sm-inline-block d-none">Previous</span>
+                            </button>
+                            <button class="btn btn-primary btn-next" id="emailPartialSubmit" type="button" disabled> <span class="d-sm-inline-block d-none">Next</span> <i class="bx bx-chevron-right bx-sm me-sm-n2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Learner Name -->
+                <div id="learner-name-confirmation" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Provide or Confirm Learner's Name</h6>
+                            <p>Confirm or enter the learner's first and last name, then click 'Submit' to enroll them. If the learner is new, an invitation will be sent.</p>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input asp-for="FirstNameToAdd" type="text" id="firstNameField" class="form-control" />
+                                <span asp-validation-for="FirstNameToAdd" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input asp-for="LastNameToAdd" type="text" id="lastNameField" class="form-control" />
+                                <span asp-validation-for="LastNameToAdd" class="text-danger"></span>                            
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-primary btn-prev" type="button">
+                                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                    <span class="d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-wizard-save btn-submit" disabled>Add</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <h5 class="card-header">All Users</h5>
+    <div class="card-body">
+        <div>
+            <div class="col-12">
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <label for="searchTextbox" class="form-label">Search:</label>
+                    <input type="search" class="form-control" placeholder="search text" id="allUsersSearchTextbox" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card table-responsive">
+        <table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="allUsersTable">
+		    <thead>
+			    <tr>
+				    <th aria-label="Title">Name</th>
+				    <th aria-label="Email">Email</th>
+				    <th aria-label="Actions">Actions</th>
+			    </tr>
+		    </thead>
+		    <tbody>
+			    @foreach (var user in Model.Users)
+			    {
+				    <tr>
+                        <td><span>@user.FirstName @user.LastName</span></td>
+                        <td><span>@user.Email</span></td>
+					    <td>
+						    <div class="demo-inline-spacing">
+                                <button type="button" class="btn rounded-pill btn-label-primary" title="Remove User" data-user-id="@user.Id" onclick="showConfirmationModal('@user.Id', '@user.FirstName', '@user.LastName')">
+                                    <span class="tf-icons bx bx-trash"></span> 
+							    </button>
+						    </div>
+					    </td>
+				    </tr>
+			    }
+		    </tbody>
+	    </table>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+            <div class="modal-body" style="white-space: nowrap;">
+                Do you want to delete <span id="userNameLabel">User Name</span>? This action cannot be undone.
+            </div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-danger" id="confirmDeleteButton">Remove User</button>
+			</div>
+		</div>
+	</div>
+</div>

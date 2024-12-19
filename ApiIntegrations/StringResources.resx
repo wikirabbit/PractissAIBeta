@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GoogleSpreadsheetAccessApiKeyJson" xml:space="preserve">
+    <value>{
+  "type": "service_account",
+  "project_id": "practissmvp",
+  "private_key_id": "1409a5d17d3cd357a8d4791b91f165db5e0e2726",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2oe1o111KwwTu\nop6RokEb7UIDMCfcg2CCOwGjuT/aeNNJaEYwxU8Mo5OM2I6dDEmEtqOc21BooM22\nSm2wzB1tf6CcwU5Xww2IbkkuyfopvDe4ars0hVvHe/GYeFf5L0e2OAgeCRC7Wlz0\no3JWN5m39lDb+IQB4CXRh60N55UGhvbN5b0lF/8uQZqevy8ZbByL2sE0AzJLvJ++\nGHEGGW2rFs+wedeaeWh4Smf9A01hn5+inTVvZuIBvQPh0FturjcwYpn6rZh2jD9P\nbRsEzopfg2G6e9d/xA6WPTHfdLN53BpUoFGfx8ez71AICPrcMb25sptCjdaG0AON\nStP2LVJVAgMBAAECggEAB9wjMApowPFwsmZ8RY9ClxWYbDOz23kp+6DXerjbxybB\nDR04PBwZwVT+4iZlyNuBBH2pv/PuW3pkMA629s9qCs7d1jE5kmxaFj+M1b8qjYZE\nraKmSOXeY9DxPlsbiiVfRDfYHZbNSgrjCkJIhu5gprqqkzT4VW5UolZg+8K2NrAg\neY1B0+0xjlqxuAwLEYJONojAIoW2J3tuZR6vvgw1OVB/VaToKK/Bt74IcJ8tz239\nsAORbG2SgqMAhMeu9/KF2lbgUI2fu+cgPawyg1wi3hQ/Gzd5CZKFI45oAA+hO8iR\nZ3flJuWUaYJ7DE4ZnPl0q9gTYxBcXHYuChK8hCK7NwKBgQD6l1BzhqidngZEc9Wz\nxxxvyEskl4XB3wT4E+bSu3kDGzJ244InQKNKnrIkOYT793Fn3EBLHnPB4uJYCo1i\nW1BlUzQJlIF9uqy+q3FmFFI40FC8LVJ8/WzKQEHTxKGbKYT9hvRwBycqgoa6RJpy\nd5R3WzyMXkv6s2MuxO+1mPJ75wKBgQC6kxiWtM51QT6NVIyHY26DtS2d23Lk/lcv\nFIQ54p2T8s4BYcx1Kg6I/z02Ocsn7P1UrslWsFfVcrgTd8JtshF1wECz8Iwyjpgx\nvU/fo4EQJPK7Yi110zTZIvfp1sj+UVtQ5g9NZbut1xAKGNPJmajhI84fq5kW+YrU\nH9PTobBYYwKBgQCMdFVee0J1HcaLhZVpL5fru4sKlncdJCCH37fHs9Zu/EZ7xqcD\n00HzKCHXFfpIs/d3bEcJE6d0K/QLvtZiI6ZbNJh9KiSuUPxT3oov2gH/4BrwbkLG\n1dCtR/jddl/SNSJaa9MEG65DMGfNbXhX4lhv0c6NKqlRekyEQVPOKEz5TwKBgDv6\nRZFNFoHDM6SjZXmwkTpt5/gzL8BFsylDYy5ol1eUWn0/P0b6+ik4RClGcvSmztmG\nRttDXTkU4+/+M9anw80ivKobzjYCeRKkVSUDnt3dwtpSOWMDPp3/C8t0bLC03rIn\nAwxSg/7igBl+2baZWxzlMcIkm9Yy6lo+0Q3bkKEZAoGAB3gEiJ7znpaKKvCEQ4jI\n+14uPU7lbK3ug3QchR+zvUUfUmISyzQ0HDXciEqbKyE9yVArAZoG4IiT99QMdDHI\n57Kpkbi8IhyA3na+5p8rYXJx4jwWDfb4AyMEaNy6GiaPjAPqg+ESaNp8ce1ceKov\nqfSY5NLv35as2MZMY9mvbdE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "practiss-worker-access@practissmvp.iam.gserviceaccount.com",
+  "client_id": "103598969090842386342",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/practiss-worker-access%40practissmvp.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}</value>
+  </data>
+  <data name="TemplateSpreadsheetId" xml:space="preserve">
+    <value>1LXFMCE-CG7bk3K5bljA_itg0k-kEibxwSrll3o_3IH4</value>
+  </data>
+  <data name="WhitelistSpreadsheetId" xml:space="preserve">
+    <value>1Q6Ir63NSwN9rLD0Mn5VCQeidx71hVzn1PPul_1JkpX8</value>
+  </data>
+  <data name="WhitelistUserActionNotification" xml:space="preserve">
+    <value>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+  .email-container {{(
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }}
+  .action-detail {{
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    padding: 15px;
+    background-color: #f0f0f0;
+    display: inline-block;
+    margin: 20px auto;
+  }}
+  .instruction-text {{
+    font-size: 16px;
+    color: #333;
+  }}
+  .highlight {{
+    color: #007BFF;
+    font-weight: bold;
+  }}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="email-container"&gt;
+    &lt;h2&gt;{0} {1} performed the following action on Practiss.ai&lt;/h2&gt;
+    &lt;p class="instruction-text"&gt;An action has been performed by a whitelist user: {2}&lt;/p&gt;
+    &lt;div class="action-detail"&gt;{3}&lt;/div&gt;
+    &lt;p class="instruction-text"&gt;
+      Details: &lt;a href="https://beta.practiss.ai/Common/ReportDetails/{4}"&gt;{4}&lt;/a&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+</root>

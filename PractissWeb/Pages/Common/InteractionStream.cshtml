@@ -1,0 +1,199 @@
+@page "{moduleAssignmentId}"
+@using PractissWeb.Services
+@model PractissWeb.Pages.Common.InteractionStreamModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+	var showUsageGuide = HttpContext.Session.GetString("ShowUsageGuide") ?? "true";
+	var avatarName = @Model.ModuleAssignment.Module.Avatar.Name;
+}
+@inject MarkdownService MarkdownService
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+
+		var showUsageGuide = '@showUsageGuide' === "true";
+		var avatarName = '@Model.ModuleAssignment.Module.Avatar.Name';
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-interaction-core.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-interaction-stream.js")"></script>
+}
+
+@section PageStyles {
+	<link rel="stylesheet" href="~/css/pages/interaction.css?v=0.93" />
+}
+
+<div id="moduleAssignmentIdDiv" data-my-variable="@Model.ModuleAssignment.Id"></div>
+
+<form id="antiforgeryTokenForm" style="display:none;">
+	@Html.AntiForgeryToken()
+</form>
+
+<div class="split-container">
+	<div class="left-half">
+		<div class="avatar-container">
+			<lottie-player class="avatar-lottie-background" id="valSpeakingBackground" src="https://storage.googleapis.com/practiss_assets/val_background_lottie.json" background="transparent" speed="1" direction="1" mode="normal" loop autoplay style="display:none"></lottie-player>
+			<lottie-player class="avatar-lottie-background" id="valListeningBackground" src="https://storage.googleapis.com/practiss_assets/val_background_lottie.json" background="transparent" speed="1" direction="1" mode="normal" loop autoplay style="display:none"></lottie-player>
+			<lottie-player class="avatar-lottie-background" id="valThinkingBackground" src="https://storage.googleapis.com/practiss_assets/val_thinking_lottie.json" background="transparent" speed="1" direction="1" mode="normal" loop autoplay style="display:none"></lottie-player>
+			<img id="avatarImage" src="data:image/png;base64,@Model.ModuleAssignment.Module.Avatar.Image" alt="Description" class="rounded-avatar">
+		</div>
+		<div>
+			<p><strong>@Model.ModuleAssignment.Module.Avatar.Name</strong></p>
+		</div>
+		<div class="control-buttons">
+			<button id="startBtn" title="Start Roleplay" class="btn control-button circle-button" style="background-image: url('/img/practiss/RoleplayStartButton.png');"></button>
+			<button id="stopBtn" title="End Roleplay" class="btn control-button circle-button" style="background-image: url('/img/practiss/RoleplayStopButton.png'); display:none;"></button>
+			<button id="microphoneBtnActive" class="btn control-button circle-button" style="background-image: url('/img/practiss/MicStartButton.png');"></button>
+			<button id="microphoneBtnPassive" class="btn control-button circle-button" style="background-image: url('/img/practiss/MicStopButton.png'); display:none;"></button>
+
+			<button type="button" class="btn btn-primary me-2" id="viewReportBtn" style="display:none">View Report</button>
+		</div>
+	</div>
+
+	<!-- Vertical Divider -->
+	<div class="vertical-divider"></div>
+
+	<div class="right-half">
+		<h5>@Model.ModuleAssignment.Module.Title</h5>
+		<br />
+		<h6>By @Model.ModuleAssignment.Coach.FirstName @Model.ModuleAssignment.Coach.LastName</h6>
+		<br />
+		@Html.Raw(MarkdownService.ConvertMarkdownToHtml(@Model.ModuleAssignment.Module.Description))
+	</div>
+</div>
+
+<!-- Chat/Feedback Popup and Overlay -->
+<div id="chatOverlay" class="chat-overlay" onclick="toggleChat()"></div>
+<div id="chatFeedbackPopup" class="chat-popup">
+	<div class="d-flex align-items-center p-2 bg-primary text-white">
+		<div id="chatHeader" class="flex-grow-1" onclick="toggleChat()">
+			Feedback
+		</div>
+		<!-- Reaction Buttons, adjust visibility based on chat state -->
+		<div id="reactionButtons" class="ml-auto">
+			<button class="btn btn-outline-secondary mr-2" onclick="toggleChat()">
+				<i class="fas fa-regular fa-message" style="color: white;"></i>
+			</button>
+			<button class="btn btn-outline-success mr-2" onclick="sendReaction(event, 'up', this)" style="user-select: none;">
+				<i class="fas fa-thumbs-up"></i>
+			</button>
+			<button class="btn btn-outline-danger" onclick="sendReaction(event, 'down', this)" style="user-select: none;">
+				<i class="fas fa-thumbs-down"></i>
+			</button>
+		</div>
+		<!-- Minimize Button, only visible in expanded state -->
+		<button id="minimizeButton" class="btn custom-minimize-btn d-none" onclick="toggleChat()">
+			<i class="fas fa-minus"></i>
+		</button>
+	</div>
+	<div id="chatContent" class="chat-content p-3 d-none">
+		<textarea id="feedbackText" class="form-control mb-2" placeholder="Your feedback here..." rows="3"></textarea>
+		<button class="btn btn-primary" type="button" onclick="submitFeedback()">Send</button>
+	</div>
+</div>
+
+<!-- End Interaction Modal -->
+<div class="modal fade" id="modalEndRoleplay" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalEndRolePlayTitle">Confirm Roleplay Termination</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#modalCenter" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to end the roleplay session? This action cannot be undone.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Continue Roleplay</button>
+				<button type="button" class="btn btn-primary">End Roleplay</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Audio Clarity Message Modal -->
+<div class="modal fade" id="modalAudioClarityIssue" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalAudioClarityIssueTitle">Audio Clarity Issue</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#modalCenter" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Oops! We encountered a hiccup with your audio. It seems we didn't catch that clearly. Could you please speak again? Ensuring clear audio helps us provide you with the best possible roleplay.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Ok</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Loading Error Modal -->
+<div class="modal fade" id="modalLoadingError" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLoadingErrorTitle">Speech Tool Blocked</h5>
+			</div>
+			<div class="modal-body">
+				<p>Looks like an ad blocker is blocking our speech tools. We don't show ads, but ad blockers can affect our features. Please disable it for our site and refresh. Thank you!"</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- UnExpected Error Modal -->
+<div class="modal fade" id="modalUnexpectedError" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalUnexpectedErrorTitle">Unexpected Error</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#modalCenter" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Oops! We've encountered an unexpected error. Could you please refresh the page? If the issue persists, kindly reach out to our support team for assistance. Your smooth learning journey is important to us, and we're here to support you every step of the way.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Ok</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Page Load Modal -->
+<div class="modal" tabindex="-1" id="preloadModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Getting Ready for Roleplay</h5>
+			</div>
+			<div class="modal-body">
+				<p>Please wait while we prepare your roleplay session.</p>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="preloadProgressBar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Post Roleplay Modal. Report Generation -->
+<div class="modal" tabindex="-1" id="reportGenerationModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Finalizing Roleplay Report</h5>
+			</div>
+			<div class="modal-body">
+				<p>Your roleplay report is currently being prepared. Thank you for your patience as we compile the insights from your session. This process should not take long.</p>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="reportProgressBar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

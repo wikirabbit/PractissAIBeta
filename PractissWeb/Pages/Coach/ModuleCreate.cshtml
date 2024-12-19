@@ -1,0 +1,213 @@
+@page
+@model PractissWeb.Pages.Coach.ModuleCreateModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.dist.js"></script>
+    <script src="~/vendor/libs/bootstrap-select/bootstrap-select.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+}
+
+@section PageScripts {
+    <script>
+        // Define alertOnError in the global scope
+        var alertOnError = '@alertOnError' === "true";
+    </script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+    <script src="@Model.GetVersionedUrl("~/js/pages-coach-modulecreate.js")"></script>
+    <script src="~/js/form-wizard-numbered.dist.js"></script>
+    <script src="~/js/form-wizard-validation.dist.js"></script>
+}
+
+<div class="col-12 mb-4">
+    <div class="bs-stepper wizard-numbered mt-2">
+            <div class="bs-stepper-header">
+                <div class="step" data-target="#content-creation">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Content Creation</span>
+                            <span class="bs-stepper-subtitle">Lay the Foundation</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#roleplay-overview-refinement">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Roleplay Overview</span>
+                            <span class="bs-stepper-subtitle">Refine Learning Objectives</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#ai-companion-selection">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Select AI Companion</span>
+                            <span class="bs-stepper-subtitle">Select Learners' AI Companion</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#ai-companion-role-refinement">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">4</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">AI Companion's Role</span>
+                            <span class="bs-stepper-subtitle">Refine AI Companion's Role</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#evaluation-questions-refinement">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">5</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Evaluation Questions</span>
+                            <span class="bs-stepper-subtitle">Refine Evaluation Questions</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="bs-stepper-content">
+                <form id="addModule" method="POST">
+                    <!-- Content Creation -->
+                    <div id="content-creation" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Content Creation</h6>
+                            <p>Describe your roleplay scenario. You can provide a brief topic, a short summary, or up to two pages of detailed content. Our AI wizard will create an engaging, interactive learning experience tailored to your input.</p>
+                        </div>
+                        <div class="row g-3">
+                            <div class="mb-3">
+                                <label for="rawInputTextArea" class="form-label">Raw Content</label>
+                                <textarea asp-for="RawContent" class="form-control" id="rawInputTextArea" rows="15"></textarea>
+                                <span asp-validation-for="RawContent" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-label-secondary btn-prev" type="button" disabled>
+                                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                    <span class="d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next" id="rawInputPartialSubmit" disabled type="button"> <span class="d-sm-inline-block d-none">Next</span> <i class="bx bx-chevron-right bx-sm me-sm-n2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Roleplay Overview -->
+                    <div id="roleplay-overview-refinement" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Roleplay Overview</h6>
+                            <p>Please wait while our AI wizard generates the roleplay scenario based on your input. This may take a minute. Once generated, you can review and refine the learning objectives. Ensure that they accurately capture the essence of your roleplay and provide learners with a clear understanding of what they will accomplish.</p>
+                        </div>
+                        <div class="row g-3">
+                            <div class="progress" id="progressBarDiv" hidden>
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="reportProgressBar"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="moduleNameTextbox" class="form-label">Module Name</label>
+                                <input asp-for="ModuleName" type="text" class="form-control" id="moduleNameTextbox" placeholder="Generating..."/>
+                                <span asp-validation-for="ModuleName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="moduleDescriptionTextArea" class="form-label">Module Description</label>
+                                <textarea asp-for="ModuleDescription" class="form-control" id="moduleDescriptionTextArea" rows="10" placeholder="Generating..."></textarea>
+                                <span asp-validation-for="ModuleDescription" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-primary btn-prev" type="button">
+                                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                    <span class="d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next" id="descriptionPartialSubmit" type="button" disabled> <span class="d-sm-inline-block d-none">Next</span> <i class="bx bx-chevron-right bx-sm me-sm-n2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- AI Companion Selection -->
+                    <div id="ai-companion-selection" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">AI Companion Selection</h6>
+                            <p>Choose the AI companion that will interact with learners throughout the roleplay experience. Preview the appearance and voice of each available character to find the one that best aligns with your roleplay's theme and desired learning outcomes.</p>
+                        </div>
+                
+                        <!-- Warning text -->
+                        <div class="warning-text mb-3" id="angryAvatarWarning" hidden>
+                            <p class="text-danger"><i class="bx bx-error-circle"></i> Warning: Please note that based on your input, our system has auto-generated an AI companion (either Patrick or Nelly) with an angry demeanor. If this doesn't suit your needs, you can select a different one.</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="avatarDropdown" class="form-label">Select an AI Companion</label>
+                                <select asp-for="SelectedAvatar" asp-items="@(new SelectList(Model.AvatarOptions, "Value", "Text"))" class="form-select" id="avatarDropdown">
+                                    <option value="">Select an AI Companion</option>
+                                </select>
+                                <span asp-validation-for="SelectedAvatar" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-primary btn-prev" type="button">
+                                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                    <span class="d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next" id="avatarPartialSubmit" type="button" disabled> <span class="d-sm-inline-block d-none">Next</span> <i class="bx bx-chevron-right bx-sm me-sm-n2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- AI Companion Role Refinement -->
+                    <div id="ai-companion-role-refinement" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">AI Companion's Role</h6>
+                            <p>Review and refine the AI-generated companion's character to ensure it accurately reflects the desired background, personality, and context. Make necessary adjustments to create a realistic and immersive interaction that keeps learners engaged throughout the roleplay.</p>
+                        </div>
+                        <div class="row g-3">
+                            <div class="mb-3">
+                                <label for="situationTextArea" class="form-label">Situation</label>
+                                <textarea asp-for="Situation" class="form-control" id="situationTextArea" rows="10"></textarea>
+                                <span asp-validation-for="Situation" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-primary btn-prev" type="button">
+                                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                    <span class="d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next" id="situationPartialSubmit" type="button" disabled> <span class="d-sm-inline-block d-none">Next</span> <i class="bx bx-chevron-right bx-sm me-sm-n2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Evaluation Questions -->
+                    <div id="evaluation-questions-refinement" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Evaluation Questions</h6>
+                            <p>Review and refine the AI-generated assessment questions to ensure they accurately evaluate learners' achievement of the learning objectives. Tailor the questions to effectively measure learners' understanding and mastery of the key concepts and skills covered in the roleplay.</p>
+                        </div>
+                        <div class="row g-3">
+                            <div class="mb-3">
+                                <label for="evaluationTextArea" class="form-label">Evaluation</label>
+                                <textarea asp-for="Evaluation" class="form-control" id="evaluationTextArea" rows="10"></textarea>
+                                <span asp-validation-for="Evaluation" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-primary btn-prev" type="button">
+                                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                    <span class="d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-wizard-save btn-submit" disabled>Save</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+            </div>
+        </div>
+</div>

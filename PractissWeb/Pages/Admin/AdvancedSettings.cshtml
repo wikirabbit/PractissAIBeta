@@ -1,0 +1,30 @@
+@page
+@model PractissWeb.Pages.Admin.AdvancedSettingsModel
+@{
+}
+
+<div class="card mb-4">
+	<h5 class="card-header pb-3">Advanced Settings</h5>
+	<form id="formAccountSettings" method="POST" enctype="multipart/form-data">
+	  <div class="card-body pt-0">
+			  <div class="row">
+				<div class="mb-3">
+					<label for="riTextArea" class="form-label">Additional Instructions for Dialog Prompt</label>
+					<textarea asp-for="AdditionalInstructionsForDialogPrompt" class="form-control" id="riTextArea" rows="10"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="eiTextArea" class="form-label">Additional Instructions for Evaluation Prompt</label>
+					<textarea asp-for="AdditionalInstructionsforEvaluationPrompt" class="form-control" id="eiTextArea" rows="10"></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="ciTextArea" class="form-label">Custom Field</label>
+					<textarea asp-for="CustomField" class="form-control" id="ciField" rows="3"></textarea>
+				</div>
+				  <div>
+					  <button type="submit" class="btn btn-primary me-2">Save changes</button>
+					  <button type="reset" class="btn btn-label-secondary">Cancel</button>
+				  </div>
+			  </div>
+	  </div>
+	</form>
+</div>

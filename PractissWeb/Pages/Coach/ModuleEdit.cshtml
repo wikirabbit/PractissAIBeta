@@ -1,0 +1,59 @@
+@page "{moduleId}"
+@model PractissWeb.Pages.Coach.ModuleEditModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-moduleedit.js")"></script>
+}
+
+<div class="card mb-4">
+	<div class="card-body">
+		<form id="formModuleCreate" method="POST">
+			<div class="row">
+				<div class="mb-3">
+					<label for="moduleNameTextbox" class="form-label">Module Name</label>
+					<input asp-for="ModuleName" type="text" class="form-control" id="moduleNameTextbox" onkeyup="updateSaveButtonState()" />
+				</div>
+
+				<div class="mb-3">
+					<input asp-for="IsPublic" type="checkbox" class="form-check-input" id="moduleVisibilityCheckbox" onchange="updateSaveButtonState()" />
+					<label class="form-check-label ms-2" for="moduleVisibilityCheckbox">Make Module Public</label>
+				</div>
+
+				<div class="mb-3">
+					<label for="moduleDescriptionTextArea" class="form-label">Module Description</label>
+					<textarea asp-for="ModuleDescription" class="form-control" id="moduleDescriptionTextArea" rows="10" onkeyup="updateSaveButtonState()"></textarea>
+				</div>
+
+				<div class="mb-3">
+					<label for="avatarDropdown" class="form-label">Select an Avatar</label>
+					<select asp-for="SelectedAvatar" asp-items="@(new SelectList(Model.AvatarOptions, "Value", "Text"))" class="form-select" id="avatarDropdown" aria-label="Default select example" onchange="updateSaveButtonState()">
+						<option value="">Select an Avatar</option>
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label for="situationTextArea" class="form-label">Situation</label>
+					<textarea asp-for="Situation" class="form-control" id="situationTextArea" rows="10" onkeyup="updateSaveButtonState()"></textarea>
+				</div>
+
+				<div class="mb-3">
+					<label for="evaluationTextArea" class="form-label">Evaluation</label>
+					<textarea asp-for="Evaluation" class="form-control" id="evaluationTextArea" rows="10" onkeyup="updateSaveButtonState()"></textarea>
+				</div>				
+
+				<div>
+					<button type="submit" class="btn btn-primary me-2" id="saveChangesButton" disabled>Save changes</button>
+					<button type="reset" class="btn btn-label-secondary">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

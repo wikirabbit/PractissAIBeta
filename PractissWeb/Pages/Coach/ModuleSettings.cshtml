@@ -1,0 +1,74 @@
+@page "{moduleId}"
+@model PractissWeb.Pages.Coach.ModuleSettingsModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-modulesettings.js")"></script>
+}
+
+<div class="card mb-4">
+	<div class="card-body">
+		<form id="formUserAdd" method="POST">
+			<div class="row">
+				<div class="col-md-12 mb-3 mb-3">
+					<h5>@Model.ModuleTitle</h5>
+				</div>
+				<div class="col-md-5 mb-3">
+					<label for="learnerTextbox" class="form-label">Learner</label>
+					<select asp-for="EmailToAdd" class="form-select" id="learnerEmail" aria-label="Default select example" onchange="updateSubmitButtonState()">
+						<option value="">Select a learner</option>
+						@foreach (var availableLearner in Model.AvailableLearners)
+						{
+							<option value="@availableLearner.Email">@availableLearner.FirstName @availableLearner.LastName</option>
+						}
+					</select>
+				</div>
+@* 				<div class="col-md-3 mb-3">
+					<label for="sessionsAllowedTextBox" class="form-label">Sessions Allowed</label>
+					<input asp-for="SessionsAllowed" class="form-control" type="number" id="sessionsAllowedTextBox" />
+				</div> *@
+				<div class="col-md-3 d-flex align-items-end mb-3">
+					<button type="submit" id="addLearnerButton" class="btn btn-primary" disabled>Add Learner</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="card">
+	<table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0">
+		<thead>
+			<tr>
+				<th >Name</th>
+				<th >Email</th>
+				<th >Sessions Completed</th>
+				<th >Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var assignedLearner in Model.AssignedLearners)
+			{
+				<tr>
+					<td><span>@assignedLearner.Learner.FirstName @assignedLearner.Learner.LastName</span></td>
+					<td><span>@assignedLearner.Learner.Email</span></td>
+					<td><span>@assignedLearner.InteractionsCount</span></td>
+@* 					<td><span>@assignedLearner.SessionsMax</span></td> *@
+					<td>
+						<div>
+							<button type="button" id="removeLearnerButton" class="btn rounded-pill btn-label-primary" onclick="removeLearnerFromModule('@Model.CoachId', '@Model.ModuleId', '@assignedLearner.Learner.Id')">
+								<span class="tf-icons bx bx-trash me-1"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

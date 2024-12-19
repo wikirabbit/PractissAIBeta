@@ -1,0 +1,72 @@
+@page
+@model PractissWeb.Pages.Coach.AvatarLibraryModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-avatarcreate.js")"></script>
+}
+
+<div class="col-12">
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="row gy-3">
+				<div class="col-lg-4">
+					<div>
+						<button type="button" class="btn btn-primary" onclick="createNewAvatar()">
+							<span class="tf-icons bx bx-plus me-1"></span>Create New Avatar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card table-responsive">
+	<table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" >
+		<thead>
+			<tr>
+				<th class="sorting" aria-label="Avatar">Avatar</th>
+				@* <th class="sorting" aria-label="Personality">Personality</th> *@
+				<th class="sorting" aria-label="Actions">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var avatar in Model.Avatars)
+			{
+				<tr>
+					<td>
+						<div class="d-flex justify-content-start align-items-center user-name">
+							<div class="avatar-wrapper">
+								<div class="avatar avatar-sm me-3"><img src="data:image/png;base64,@avatar.Image" alt="Avatar" class="rounded-circle"></div>
+							</div>
+							<div class="d-flex flex-column">
+								<span class="fw-semibold">@avatar.Name</span>
+							</div>
+						</div>
+					</td>
+@* 					<td><span>@avatar.Personality</span></td> *@
+					<td>
+						<!-- Voice Button -->
+						<button type="button" class="btn rounded-pill btn-label-primary" onclick="playAvatarVoice('@avatar.VoiceName', '@avatar.Personality')">
+							<span class="tf-icons bx bx-volume-full"></span>
+						</button>
+						<!-- Actions Button -->
+						<button type="button" class="btn rounded-pill btn-label-primary" title="Edit" onclick="editAvatar('@avatar.Id')">
+							<span class="tf-icons bx bx-edit"></span>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<!-- Hidden audio element -->
+<audio id="avatarAudio"></audio>

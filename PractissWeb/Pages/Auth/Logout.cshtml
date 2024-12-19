@@ -1,0 +1,25 @@
+@page
+@model PractissWeb.Pages.Auth.LogoutModel
+
+@{
+	Layout = "Layouts/_BlankLayout";
+	ViewData["Title"] = "Logout";
+}
+
+@section VendorStyles {
+	<link rel="stylesheet" href="~/vendor/libs/formvalidation/dist/css/formValidation.min.css">
+}
+
+@section VendorScripts {
+	<script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+	<script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+	<script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+}
+
+@section PageStyles {
+	<link rel="stylesheet" href="~/vendor/css/pages/page-auth.dist.css">
+}
+
+@section PageScripts {
+	<script src="~/js/pages-auth.dist.js?v=0.8"></script>
+}

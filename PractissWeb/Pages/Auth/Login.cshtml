@@ -1,0 +1,77 @@
+@page
+@model PractissWeb.Pages.Auth.LoginModel
+
+@{
+	Layout = "Layouts/_BlankLayout";
+	ViewData["Title"] = "Login";
+}
+
+@section VendorStyles {
+	<link rel="stylesheet" href="~/vendor/libs/formvalidation/dist/css/formValidation.min.css">
+}
+
+@section VendorScripts {
+	<script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+	<script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+	<script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+}
+
+@section PageStyles {
+	<link rel="stylesheet" href="~/vendor/css/pages/page-auth.dist.css">
+}
+
+@section PageScripts {
+	<script src="~/js/pages-auth.dist.js?v=0.93"></script>
+	<script src="~/js/pages-login.js?v=0.93"></script>
+}
+
+<form id="antiforgeryTokenForm" style="display:none;">
+	@Html.AntiForgeryToken()
+</form>
+
+<div class="container-xxl">
+	<div class="authentication-wrapper authentication-basic container-p-y">
+		<div class="card">
+			<div class="card-body">
+				<div class="app-brand justify-content-center mb-3">
+					<a href="/" class="app-brand-link gap-2">
+						<span class="app-brand-logo">@await Html.PartialAsync("../_Partials/_Macros")</span>
+						<span class="app-brand-text h3 mb-0 fw-bold">@TempData.Peek("appName")</span>
+					</a>
+				</div>
+				<p class="mb-3 text-center">Enter your email to sign in</p>
+
+				<form id="formAuthentication" class="mb-3" method="POST">
+					<div class="mb-3">
+						<label for="email" class="form-label">Email</label>
+						<input asp-for="Email" type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
+					</div>
+					<div id="inputLoginCode" class="mb-3" style="display:none;">
+						<p>
+							Your login code has been sent.<br>
+							Check your inbox or spam folder. <br />
+							Don't see it? <a href="#" id="resendCode">Resend Code</a>
+						</p>
+						<label for="code" class="form-label">Login code</label>
+						<input asp-for="Code" type="text" class="form-control" id="code" name="code" placeholder="Paste login code" autofocus>
+						<span id="invalidCodeMessage" class="text-danger" style="display:none;">Invalid Code</span>
+					</div>
+					<div id="submitEmail" class="mb-3">
+						<button id="submitEmailButton" class="btn btn-primary d-grid w-100" asp-page-handler="Email" type="button">Continue with email</button>
+					</div>
+					<div id="submitLoginCode" class="mb-3" style="display:none;">
+						<button id="submitLoginCodeButton" class="btn btn-primary d-grid w-100" asp-page-handler="Code" type="button">Continue with login code</button>
+					</div>
+				</form>
+
+				<p class="text-center mb-0">
+					<span>New on our platform?</span>
+					<a href="/Auth/Register">
+						<span>Create an account</span>
+					</a>
+				</p>
+
+			</div>
+		</div>
+	</div>
+</div>

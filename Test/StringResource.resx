@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdditionQuestionsInReport" xml:space="preserve">
+    <value>Did participant use the SBI framework to effectively navigate the discussion? Yes
+Did participant proactively identify and seize opportunities to advance goals without explicit direction? No - While Trish effectively
+Did participant demonstrate effective interview skills? Yes - Kathryn asked relevant questions, maintained a professional demeanor, and sought to understand the candidate's experience and problem-solving abilities.
+Did participant use the SBI framework to effectively navigate the discussion? [Yes]
+Did participant proactively identify and seize opportunities to advance goals without explicit direction? [No] While Trish effectively
+Did participant demonstrate effective interview skills? [Yes] Kathryn asked relevant questions, maintained a professional demeanor, and sought to understand the candidate's experience and problem-solving abilities.</value>
+  </data>
+  <data name="CosmosDatataseName" xml:space="preserve">
+    <value>practissnosql</value>
+  </data>
+  <data name="CosmosDbConnectionString" xml:space="preserve">
+    <value>AccountEndpoint=https://practisscosmosdbaccount.documents.azure.com:443/;AccountKey=d9kYFfDuFy5N4CuzOy6mI3vs2ZXfbYMFWjyiWVNXpunczz4U0ypElggxMbZEkejAAsAHoQ0IKc2oACDb3bwGJQ==;</value>
+  </data>
+  <data name="ReportEvaluation" xml:space="preserve">
+    <value>**Additional Questions**:
+
+*   Did Joe demonstrate effective adaptation when faced with new information or challenges? [Yes] [Absolutely thrilled with how joe did.] 
+*   Did Joe proactively identify and seize opportunities to advance goals without explicit direction?  [Yes] Joe did really well.</value>
+  </data>
+  <data name="TestEmailHtmlBody" xml:space="preserve">
+    <value>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;Email Content&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="font-family: Arial, sans-serif; color: #333;"&gt;
+  &lt;h2 style="color: #0056b3;"&gt;Hello!&lt;/h2&gt;
+  &lt;p&gt;We are excited to share the latest updates with you.&lt;/p&gt;
+  &lt;p&gt;Check out our new features that can help you increase your productivity!&lt;/p&gt;
+  &lt;a href="https://www.yourwebsite.com" target="_blank" style="background-color: #0056b3; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;"&gt;Learn More&lt;/a&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="TestModuleParseInput" xml:space="preserve">
+    <value>**Title:** Navigating Conflict Management in the Workplace
+
+**Description:**
+- Understand the dynamics of conflict in professional settings.
+- Learn strategies for effective conflict resolution.
+- Practice communication techniques that de-escalate tension.
+
+**Scenario for AI Interaction:** 
+Your name is Michael. You are playing the role of a team leader in a corporate setting. A conflict has arisen between two team members over the allocation of resources for a project, leading to tension within the team. Your task is to engage in a constructive dialogue with the LEARNER, who is acting as one of the team members involved in the conflict. You need to address the situation, understand both perspectives, and guide the conversation towards a resolution that acknowledges the concerns of both parties. Your goal is to maintain a professional tone, encourage open communication, and facilitate a compromise that supports the team's objectives.
+
+**Evaluation:**
+- Did the LEARNER successfully identify the root causes of the conflict?
+- Was the LEARNER able to communicate their perspective effectively without escalating the situation?
+- Did the LEARNER demonstrate an ability to listen and consider the other party's viewpoint?
+- Was the LEARNER able to contribute to a constructive resolution that benefits the team?
+
+**Avatar:** Michael</value>
+  </data>
+  <data name="Whitelisters" xml:space="preserve">
+    <value>alex@grw.ai	Alex McNaughten
+bianca.hayes@tmsconsulting.com.au	Bianca Hayes
+trish.cloete@tmsconsulting.com.au	Trish Cloete
+mark.kane@tmsconsulting.com.au	Mark Kane
+jeff@salesassembly.com	Jeff Rosset
+jeff@projectoty.com	Jeff Otis
+colin.campbell@joinpavilion.com	Colin Campbell
+josh.carter@joinpavilion.com	Josh Carter
+sam@joinpavilion.com	Sam Jacobs
+kathleen@joinpavilion.com	Kathleen Booth
+kalkat@humantic.ai	Amarpreet Kalkat
+neeraj@humanticai.com	Neeraj Singh
+diannawinegarden@gmail.com	Dianna Winegarden
+jsilver99@gmail.com	Jeremy Silver
+andreas@bloofusion.com	Andreas Mueller
+jonathan.david.moss@gmail.com	Jonathan Moss
+laurie@stanfordalumni.org	Laurie Barlev
+george.mcclymont@gmail.com	George McClymont
+tenisha@37xdigital.com	Tenisha Griggs
+beth.ferrigno@outlook.com	Beth Ferrigno
+dumesnil1218@gmail.com	Kambria Dumesnil
+epsteinnadam@gmail.com	Alice Technologies
+robin@robinmcnatt.com	Robin McNatt
+me@barryflack.co.uk	Barry Flack
+randideckard@gmail.com	Randi Deckard
+erin@veritardusmarketing.com	Erin Hagan
+mmoody1@gmail.com	Melissa Moody
+dylanwinbourn@gmail.com	Dylan Winbourn
+dave@peckens.com	Dave Peckens
+bethrmccullough@gmail.com	Beth McCullough
+kttobin@google.com	Katie Tobin
+rita@cxgadvisors.com	Rita Jhaveri
+whittemore.s@gmail.com	Hunters and Unicorns
+jonathan@jonathanvarkul.com	Jonathan Varkul
+kevin@kevinmyates.com	Kevin M. Yates
+abi@leadnotlag.com	Abi Williams
+curt@letsparachute.com	Curt Olivareas
+anthony@letsparachute.com	Anthony Veverka
+lindsey@guidere.com	Lindsey Tursi
+srf@lodestonehr.com	Sandy Fiaschetti
+laura_miller@mckinsey.com	Laura Miller
+pashaffer@microsoft.com	Pat Shaffer
+kenna.ranson@gmail.com	Kenna Ranson
+dinesh@ntrusters.com	Dinesh Gurupur
+matt@onevisory.com	Matt Thoene
+matt.russell@pfizer.com	Matt Russell
+mary@salesbq.com	Mary Grothe
+gretchen@rev-amp.ai	Gretchen Waldsmith
+algot.sorensen@sandler.com	Algot Sorensen
+kacie.w.jenkins@gmail.com	Kacie Jenkins
+darrylwhite366@gmail.com	Darryl White
+chris@swintoo.com	christophe leray
+sylvia.yi@nytimes.com	Sylvia Yi
+bobbyedmundowicz@gmail.com	Bobby Edmundowicz
+cmoss@themossgroup.com	Charlie Moss
+kristin.c.saling.mil@army.mil	Kris Saling
+efleetwood@deloitte.co.uk	Emma Fleetwood
+chrmurphy@deloitte.com	Christine Murphy
+krissy@blueprintexpansion.com	Krissy Manzano
+glen@orangecoregroup.com	Glen Swindell
+Mark.Newhall@adeccogroup.com	Mark Newhall
+paul.joly@adeccogroup.com	Paul Joly
+lindafmb@gmail.com	Linda Berberich
+Joan.Ste-Marie@umanitoba.ca	Joan Ste-Marie</value>
+  </data>
+</root>

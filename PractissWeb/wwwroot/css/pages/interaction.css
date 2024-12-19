@@ -1,0 +1,222 @@
+
+@media(min-width: 878px){
+    .split-container {
+        display: flex;
+        height: 100vh;
+    }
+}
+
+.left-half, .right-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Vertical divider styling */
+.vertical-divider {
+  width: 1px; /* Adjust the thickness of the divider */
+  background-color: #ccc; /* Divider color, can be changed */
+  height: 100%; /* Divider takes the full height */
+}
+
+/* Avatar and buttons styling */
+.avatar-container {
+  position: relative;
+  align-self: center;
+}
+
+    .rounded-avatar {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+ 
+
+.avatar-lottie-background {
+  width: 30rem; /* Reduced from 40rem */
+  height: 30rem; /* Reduced from 40rem */
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  z-index: 0;
+}
+
+.circle-button {
+    border-radius: 50%;
+    width: 60px; /* Adjust based on your design */
+    height: 60px; /* Adjust based on your design */
+    padding: 10px;
+    background-size: 50%; /* Adjust to fit the icon size */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.control-buttons {
+  position: relative;
+  bottom: 0%;
+  display: flex;
+  justify-content: safe center;
+  width: 100%;
+}
+
+.control-button {
+  width: 10rem;
+  height: 10rem;
+}
+
+/* Right half styling */
+.right-half {
+  text-align: center;
+  padding: 2rem;
+}
+
+  .right-half h1 {
+    margin-bottom: 1rem;
+  }
+
+  .right-half p {
+    text-align: left;
+  }
+
+  .right-half li {
+    text-align: left;
+  }
+
+
+.chat-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4); /* Dim the background */
+  z-index: 999; /* Ensure it's below the popup but above other content */
+  display: none; /* Initially hidden */
+}
+
+
+.chat-popup {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px; /* Initial width */
+  z-index: 9000;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.chat-content {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.chat-expanded {
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+  width: 50%; /* Adjust width for larger size */
+  max-height: 70%; /* Adjust for larger size */
+  display: flex;
+  flex-direction: column;
+}
+
+#chatHeader .fas {
+  margin-right: 5px; /* Adds spacing between the icon and the text */
+  color: #fff; /* Sets the icon color to white */
+  /* Adjust the size by using the font-size property if needed */
+}
+
+#chatHeader .btn-outline-secondary {
+  margin-left: 10px; /* Adds spacing between the text and the icon */
+  vertical-align: middle; /* Ensures the button aligns with the text */
+  /* Add custom styles here as needed */
+}
+
+/* Adjust the minimize button to only be visible in the expanded state */
+.custom-minimize-btn {
+  background-color: transparent; /* Remove any background color */
+  color: #ffffff; /* Set the icon color */
+  border: none; /* Remove border */
+}
+
+  .custom-minimize-btn:hover, .custom-minimize-btn:focus {
+    background-color: rgba(255, 255, 255, 0.2); /* Subtle hover effect */
+    color: #ffffff; /* Adjust color on hover if needed */
+    border: none;
+    outline: none; /* Remove outline on focus for a cleaner look */
+  }
+
+  /* Ensure the icon is visually prominent */
+  .custom-minimize-btn .fas {
+    font-size: 18px; /* Adjust the size as needed */
+  }
+
+
+.reaction-buttons {
+  display: flex; /* Ensure buttons are inline and can be hidden/shown */
+}
+
+/* Hide reaction buttons when chat is expanded */
+.chat-expanded + .reaction-buttons {
+  display: none;
+}
+
+.reaction-up-clicked {
+  background-color: #28a745; /* Green background for thumbs up */
+  color: white; /* White text to ensure visibility */
+}
+
+.reaction-down-clicked {
+  background-color: #dc3545; /* Red background for thumbs down */
+  color: white; /* White text to ensure visibility */
+}
+
+
+
+
+
+/* For the Report Details Page */
+
+.reaction-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 1rem; /* Adjusted from 1.5em to 1rem for smaller icons */
+  padding: 1px; /* Add padding around buttons */
+  margin: 0 5px; /* Add some space between buttons */
+  display: inline-flex; /* Use flexbox for aligning icon inside button */
+  align-items: center; /* Center align items vertically */
+  justify-content: center; /* Center align items horizontally */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+  .reaction-button i {
+    font-size: 1rem; /* Adjust icon size if needed */
+  }
+
+
+  .reaction-button:hover,
+  .reaction-button:focus {
+    color: #0056b3; /* Change color on hover/focus */
+    outline: none; /* Removes outline */
+  }
+
+.fa-regular.fa-message {
+  color: white;
+}
+
+@media(max-width:877px){
+    .split-container {
+        display: block;
+    }
+    
+}

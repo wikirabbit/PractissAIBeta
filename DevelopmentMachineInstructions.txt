@@ -1,0 +1,28 @@
+-------------------------------------------------------------
+Instructions to run PractissMVP on local development machine
+-------------------------------------------------------------
+
+1. Setup Environment Variables
+
+Set the following environment variables, before opening the visual studio solution.
+
+setx CosmosDbConnectionString "AccountEndpoint=https://practissnosql.documents.azure.com:443/;AccountKey=J73Ve6xGUfouA3IcglRhwMe6WrnbG0GwmQ81LmG8sjjyUhnzc4BPJAOFSgTikUMU70yKvzjEEG1CACDbRqYWpg==;"
+setx DatabaseName practissnosqldb
+setx ElevenLabsApiKey "28822cb35ac7f0cb9b3ce9d88b37b71f"
+setx GeminiApiKey "AIzaSyBcIbVY4oeo0oB20557coAMofoP9LGvs-M"
+setx MistralApiKey "Bearer dJang4qL9CO9TJCBXOT7n7IdbGmm0i6D"
+setx OpenAIApiKey "Bearer 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"
+setx PractissApiUrl "https://localhost:7228/api/"
+setx SendgridApiKey "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"
+
+2. Setup the startup projects
+
+Make sure that you set the PractissApi, and PractissWeb as the startup projects. 
+
+PractissApi is configured to start on https://localhost:7228/
+PractissWeb is configured to start on https://localhost:7091/
+
+3. Login
+
+Use test@practiss.ai with code 101323 to login. 
+

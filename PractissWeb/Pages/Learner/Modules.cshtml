@@ -1,0 +1,104 @@
+@page
+@model PractissWeb.Pages.Learner.ModulesModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-learner-modules.js")"></script>
+}
+
+<div class="card mb-3">
+  <h5 class="card-header">Coach's Recommendations</h5>
+  <div class="card table-responsive">
+  <table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" >
+	  <thead>
+		  <tr>
+			  <th class="sorting" aria-label="Coach">Coach</th>
+			  <th class="sorting" aria-label="Module">Module</th>
+			  <th class="sorting" aria-label="Interact">Interact</th>
+		  </tr>
+	  </thead>
+	  <tbody>
+			@foreach (var moduleAssignment in Model.ModuleAssignments)
+			{
+				<tr>
+					<td>
+						<div class="d-flex justify-content-start align-items-center user-name">
+							<div class="avatar-wrapper">
+								<div class="avatar avatar-sm me-3">
+									<img src="data:image/png;base64,@moduleAssignment.Module.Avatar.Image" alt="Avatar" class="rounded-circle">
+								</div>
+							</div>
+							<div class="d-flex flex-column">
+								<span class="fw-semibold">@moduleAssignment.Coach.FirstName @moduleAssignment.Coach.LastName</span>
+								<small class="text-muted">@moduleAssignment.Coach.Email</small>
+							</div>
+						</div>
+					</td>
+					<td><span>@moduleAssignment.Module.Title</span></td>
+					<td>
+						<!-- Actions (e.g., Start Module) -->
+						<div class="d-inline-block text-nowrap">
+							<button type="button" class="btn rounded-pill btn-label-primary" title="Start Roleplay" onclick="startRoleplay('@Model.Mode', '@moduleAssignment.Id')">
+								<span class="tf-icons bx bx-play"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+	  </tbody>
+  </table>
+</div>
+</div>
+
+
+<div class="card mb-3">
+	<h5 class="card-header">Favorites from Discover</h5>
+	<div class="card table-responsive">
+		<table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+			<thead>
+				<tr>
+					<th class="sorting" aria-label="Coach">Coach</th>
+					<th class="sorting" aria-label="Module">Module</th>
+					<th class="sorting" aria-label="Interact">Interact</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var bookmarkedModule in Model.BookmarkedModules)
+				{
+					<tr>
+						<td>
+							<div class="d-flex justify-content-start align-items-center user-name">
+								<div class="avatar-wrapper">
+									<div class="avatar avatar-sm me-3">
+										<img src="data:image/png;base64,@bookmarkedModule.Module.Author.ProfileImage" alt="Avatar" class="rounded-circle">
+									</div>
+								</div>
+								<div class="d-flex flex-column">
+									<span class="fw-semibold">@bookmarkedModule.Module.Author.FirstName @bookmarkedModule.Module.Author.LastName</span>
+									<small class="text-muted">@bookmarkedModule.Module.Author.Email</small>
+								</div>
+							</div>
+						</td>
+						<td><span>@bookmarkedModule.Module.Title</span></td>
+						<td>
+							<!-- Actions (e.g., Start Module) -->
+							<div class="d-inline-block text-nowrap">
+								<button type="button" class="btn rounded-pill btn-label-primary" title="Start Roleplay" onclick="startRoleplay('@Model.Mode', '@bookmarkedModule.Module.Id')">
+									<span class="tf-icons bx bx-play"></span>
+								</button>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+

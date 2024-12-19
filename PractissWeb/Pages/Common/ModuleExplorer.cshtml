@@ -1,0 +1,101 @@
+@page
+@using PractissWeb.Services
+@model PractissWeb.Pages.Common.ModuleExplorerModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+@inject MarkdownService MarkdownService
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-common-moduleexplorer.js")"></script>
+}
+
+<form id="antiforgeryTokenForm" style="display:none;">
+	@Html.AntiForgeryToken()
+</form>
+
+<!-- Modal-like Fade-in Card -->
+<div id="detailCardOverlay" class="detail-card-overlay" onclick="hideDetailCard()" style="display:none;">
+	<div id="detailCard" class="fade-in-card" onclick="event.stopPropagation();">
+		<div class="card-header">
+			Roleplay Details
+			<button onclick="hideDetailCard()" class="close-button">&times;</button>
+		</div>
+		<div class="card-body">
+			<p id="moduleDetailText"></p>
+		</div>
+	</div>
+</div>
+
+<div class="card mb-4">
+	<div class="card-body">
+		<form id="formModuleSearch" method="POST">
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<label for="moduleNameTextbox" class="form-label">Module Name</label>
+					<input asp-for="ModuleName" type="text" class="form-control" id="moduleNameTextbox" />
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="authorNameTextbox" class="form-label">Author Name</label>
+					<input asp-for="AuthorName" type="text" class="form-control" id="authorNameTextbox" />
+				</div>
+				<div class="col-md-3 d-flex align-items-end mb-3">
+					<button type="submit" id="searchButton" class="btn btn-primary">Search</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	@foreach (var module in Model.Modules)
+	{
+		<div class="col-12 col-lg-6 mb-4">
+			<div class="card h-100">
+				<div class="card-header d-block d-sm-flex align-items-center">
+					<div class="d-flex align-items-center me-3">
+						<div class="avatar avatar-md me-3">
+							<img src="data:image/png;base64,@module.Author.ProfileImage" alt="Author Profile Image" class="rounded-circle">
+						</div>
+						<div class="card-title mb-0 pt-3 pt-sm-0">
+							<h6 class="mb-0">@module.Title</h6>
+							<small class="text-muted">by @module.Author.FirstName @module.Author.LastName</small>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					@Html.Raw(MarkdownService.ConvertMarkdownToHtml(@module.Description))
+				</div>
+				<div class="card-footer border-top">
+					<div class="d-flex justify-content-between">
+						<ul class="list-inline mb-0">
+							@if (module.InteractionsCount > 0)
+							{
+								<li class="list-inline-item"><i class="bx bx-check"></i> Used @module.InteractionsCount Times</li>
+							}
+							@if (Model.UserId != module.Author.Id)
+							{
+								@if (Model.BookmarkedModuleIds.Contains(module.Id))
+								{
+									<li class="list-inline-item"><i class="bx bxs-heart" onclick="toggleBookmark(this, '@Model.UserId', '@module.Id', true)"></i></li>
+								}
+								else
+								{
+									<li class="list-inline-item"><i class="bx bx-heart" onclick="toggleBookmark(this, '@Model.UserId', '@module.Id', false)"></i></li>
+								}
+							}
+						</ul>
+						<!-- Button aligned to the right on the same line as the list -->
+						<button type="button" class="btn rounded-pill btn-label-primary ms-auto" title="Start Roleplay" onclick="startModule('@Model.Mode', '@module.Id')">
+							<span class="tf-icons bx bx-play"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>

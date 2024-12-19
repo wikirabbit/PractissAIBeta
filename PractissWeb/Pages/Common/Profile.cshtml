@@ -1,0 +1,122 @@
+@page
+@model ProfileModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script src="@Model.GetVersionedUrl("~/js/pages-coach-profileedit.js")"></script>
+}
+
+<div class="card mb-4">
+	<h5 class="card-header pb-3">Profile Details</h5>
+	<form id="formAccountSettings" method="POST" enctype="multipart/form-data">
+	  <div class="card-body pt-0">
+		  <div class="d-flex align-items-start align-items-sm-center gap-4">
+			  <img src="data:image/png;base64,@Model.ProfileImage" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+			  <div class="button-wrapper">
+				  <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+					  <span class="d-none d-sm-block">Upload new photo</span>
+					  <i class="bx bx-upload d-block d-sm-none"></i>
+					  <input type="file" id="upload" asp-for="UploadedImage" class="account-file-input" hidden accept="image/png, image/jpeg" onchange="previewImage()" />
+				  </label>
+				  <p class="mb-0">Allowed JPG, GIF or PNG. Max size of 800KB</p>
+			  </div>
+		  </div>
+	  </div>
+		<div class="card-body pt-0">
+			<div class="row">
+				<div class="mb-3 col-md-6">
+					<label for="firstNameTextbox" class="form-label">First Name</label>
+					<input asp-for="FirstName" class="form-control" type="text" id="firstNameTextbox" autofocus />
+				</div>
+				<div class="mb-3 col-md-6">
+					<label for="lastNameTextbox" class="form-label">Last Name</label>
+					<input asp-for="LastName" class="form-control" type="text" id="lastNameTextbox" />
+				</div>
+				<div class="mb-3 col-md-6">
+					<label for="emailTextbox" class="form-label">Email</label>
+					<input asp-for="Email" class="form-control" type="text" id="emailTextbox" />
+				</div>
+				<div class="mb-3 col-md-6">
+					<div class="form-check">
+						<input asp-for="IsInstructionDesigner" class="form-check-input" type="checkbox" id="designerCheckBox" />
+						<label class="form-check-label" for="designerCheckBox">Instruction Designer</label>
+					</div>
+					<!-- Enable Intense Avatars Checkbox -->
+					@* <div class="form-check mt-2">
+					<input asp-for="ShowIntenseAvatars" class="form-check-input" type="checkbox" id="showIntenseAvatarsCheckBox" />
+						<label class="form-check-label" for="showIntenseAvatarsCheckBox">Show Intense Avatars</label>
+					</div> *@
+					<!-- AlertOnError Checkbox -->
+					@* <div class="form-check mt-2">
+						<input asp-for="AlertOnError" class="form-check-input" type="checkbox" id="alertOnErrorCheckBox" />
+						<label class="form-check-label" for="alertOnErrorCheckBox">Alert on Error</label>
+					</div> *@
+					<!-- StreamingMode Checkbox -->
+					@* <div class="form-check mt-2">
+						<input asp-for="StreamingMode" class="form-check-input" type="checkbox" id="streamingModeCheckBox" />
+						<label class="form-check-label" for="streamingModeCheckBox">Streaming Mode</label>
+					</div> *@
+				</div>
+				<div class="mb-3">
+					<label for="bioTextArea" class="form-label">Goals & Aspirations</label>
+					<textarea asp-for="Bio" class="form-control" id="bioTextArea" rows="3"></textarea>
+				</div>
+				<div class="mt-2">
+					<button type="submit" class="btn btn-primary me-2">Save changes</button>
+					<button type="reset" class="btn btn-label-secondary">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+@if(Model.Email.Contains("@practiss.ai"))
+{
+	<div class="card mb-4">
+		<h5 class="card-header pb-3">LLM Preferences</h5>
+		<form id="formLLMPreferences" method="POST" asp-page-handler="LLMPreferences">
+			<div class="card-body pt-0">
+				<div class="mb-3 col-md-6">
+					<label for="roleplayLLMSelect" class="form-label">Roleplay LLM</label>
+					<select asp-for="RoleplayLLM" class="form-select" id="roleplayLLMSelect">
+						<option value="OpenAI">Open AI</option>
+						<option value="Mistral">Mistral</option>
+						<option value="Gemini">Gemini</option>
+					</select>
+				</div>
+				<div class="mb-3 col-md-6">
+					<label for="reportLLMSelect" class="form-label">Reports LLM</label>
+					<select asp-for="ReportLLM" class="form-select" id="reportLLMSelect">
+						<option value="OpenAI">Open AI</option>
+						<option value="Mistral">Mistral</option>
+						<option value="Gemini">Gemini</option>
+					</select>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary me-2">Save Preferences</button>
+					<button type="reset" class="btn btn-label-secondary">Cancel</button>
+				</div>
+			</div>
+		</form>
+	</div>
+}
+<div class="card mb-4">
+	<h5 class="card-header pb-3">Integrations</h5>
+	<form id="formIntegrations" method="POST" asp-page-handler="Integrations" enctype="multipart/form-data">
+		<div class="card-body pt-0">
+			<div class="row">
+				<div class="mb-3 col-md-6">
+					<label for="firefliesApiKeyTextBox" class="form-label">Fireflies API Key</label>
+					<input asp-for="ApiIntegrations.FirefliesApiKey" class="form-control" type="text" id="firefliesApiKeyTextBox" autofocus />
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary me-2">Save changes</button>
+					<button type="reset" class="btn btn-label-secondary">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

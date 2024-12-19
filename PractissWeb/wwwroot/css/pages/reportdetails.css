@@ -1,0 +1,151 @@
+/* For the Report Details Page */
+
+.reaction-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 1rem; /* Adjusted from 1.5em to 1rem for smaller icons */
+  padding: 1px; /* Add padding around buttons */
+  margin: 0 5px; /* Add some space between buttons */
+  display: inline-flex; /* Use flexbox for aligning icon inside button */
+  align-items: center; /* Center align items vertically */
+  justify-content: center; /* Center align items horizontally */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none; /* Non-prefixed version */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+  .reaction-button i {
+    font-size: 1rem; /* Adjust icon size if needed */
+  }
+
+
+  .reaction-button:hover,
+  .reaction-button:focus {
+    color: #0056b3; /* Change color on hover/focus */
+    outline: none; /* Removes outline */
+  }
+
+/*.chat-popup {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;*/ /* Increased width */
+  /*max-width: 90%;*/ /* Ensure it doesn't exceed the screen width on small devices */
+  /*background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: none;
+  z-index: 1050;*/ /* Ensure this is higher than the overlay */
+/*}*/
+
+/*.chat-popup {
+  position: fixed;
+  right: 20px;*/ /* Adjust as needed for margin from the right edge */
+  /*bottom: 20px;*/ /* Adjust as needed for margin from the bottom edge */
+  /*width: 600px;*/ /* Or your preferred width */
+  /*max-width: 90%;*/ /* To ensure responsiveness on smaller screens */
+  /*background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: none;
+  z-index: 1050;*/ /* Ensure this is higher than the overlay */
+  /*transform: none;*/ /* Remove any previous centering transform */
+/*}*/
+
+.chat-popup {
+  position: fixed; /* Keep this to ensure the popup stays in place even on scroll */
+  width: 600px; /* Or your desired width */
+  transform: translateX(-50%); /* This will center the popup horizontally based on its left property */
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: none; /* Initially hidden */
+  z-index: 1050;
+  /* Remove right and bottom properties if present */
+}
+
+
+
+.chat-content {
+  display: block; /* Make sure the content is visible when the popup is active */
+}
+
+.chat-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.10); /* Adjust opacity as needed */
+  display: none;
+  z-index: 1040; /* Ensure this is below the popup but above other page content */
+}
+
+.highlighted {
+  background-color: yellow; /* Or use any specific shade of yellow you prefer */
+}
+
+.markdown-conversation highlighted {
+  background-color: yellow; /* Or use any specific shade of yellow you prefer */
+}
+
+.markdown-conversation li {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  max-width: 80%; /* Control the maximum width of the chat bubbles */
+}
+
+  /* Speaker 1 styles (left justified, black on light gray) */
+  .markdown-conversation li.speaker1 {
+    background-color: #111111; /* Light Orange background */
+    text-align: left;
+    color: #ffffff; /* White text color */
+    margin-left: 0;
+    margin-right: auto; /* Ensures the chat bubble is left-aligned */
+  }
+
+  /* Speaker 2 styles (right justified, white on blue) */
+  .markdown-conversation li.speaker2 {
+    background-color: #f5f5f5; /* Yellow background */
+    text-align: left;
+    color: #000; /* Black text color */
+    margin-right: 0;
+    margin-left: auto; /* Ensures the chat bubble is right-aligned */
+  }
+
+/* Style for speaker names */
+.markdown-conversation .speaker-name {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Custom color for each speaker's name */
+.markdown-conversation li.speaker1 .speaker-name {
+    color: #ff9a00;/* Grey text color, or any other color you prefer */
+}
+
+.markdown-conversation li.speaker2 .speaker-name {
+    color: #328187; /* White text color for better visibility on blue background */
+}
+
+/* Ensure highlighted style applies within markdown-conversation */
+.markdown-conversation .highlighted {
+  background-color: yellow !important; /* Adding !important to ensure override */
+}
+
+.inline-comment {
+  font-style: italic;
+  color: #6c757d; /* Adjust the color as needed */
+  font-size: 0.9rem; /* Adjust size as needed */
+  margin-top: 10px; /* Add some space above the comment */
+}
+

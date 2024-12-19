@@ -1,0 +1,69 @@
+@page
+@model PractissWeb.Pages.Admin.AllReportsModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="~/js/pages-base.js"></script>
+	<script src="~/js/pages-common-reportsearch.js"></script>
+}
+
+<div class="card mb-4">
+	<div class="card-body">
+		<form id="formReportsSearch" method="POST">
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<label for="learnerEmailTextbox" class="form-label">Learner Email</label>
+					<input asp-for="LearnerEmail" type="text" class="form-control" id="learnerEmailTextbox" />
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="coachEmailTextbox" class="form-label">Coach Email</label>
+					<input asp-for="CoachEmail" type="text" class="form-control" id="coachEmailTextbox" />
+				</div>
+				<div class="col-md-3 d-flex align-items-end mb-3">
+					<button type="submit" id="searchButton" class="btn btn-primary">Search</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="card table-responsive">
+	<table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" >
+		<thead>
+			<tr>
+				<th class="sorting" aria-label="Learner">Learner</th>
+				<th class="sorting" aria-label="Coach">Coach</th>
+				<th class="sorting" aria-label="Module">Module</th>
+				<th class="sorting" aria-label="Module">Session Time</th>
+				<th class="sorting" aria-label="Date">Date</th>
+				<th class="sorting" aria-label="Actions">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var report in Model.AllReports)
+			{
+				<tr>
+					<!-- Fill in table data -->
+					<td><span>@report.ModuleAssignment.Learner.FirstName @report.ModuleAssignment.Learner.LastName</span></td>	
+					<td><span>@report.ModuleAssignment.Coach.FirstName @report.ModuleAssignment.Coach.LastName</span></td>
+					<td><span>@report.ModuleAssignment.Module.Title</span></td>
+					<td><span>@report.RoleplayMinutes</span></td>
+					<td><span>@DateTime.Parse(report.InteractionStats.InteractionEndTime).ToShortDateString()</span></td>
+					<td>
+						<div>
+							<button type="button" class="btn rounded-pill btn-label-primary" onclick="viewReportDetails('@report.Id')">
+								<span class="tf-icons bx bx-detail"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

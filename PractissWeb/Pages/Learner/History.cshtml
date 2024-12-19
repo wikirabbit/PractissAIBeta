@@ -1,0 +1,81 @@
+@page
+@model PractissWeb.Pages.Learner.HistoryModel
+@{
+	var alertOnError = HttpContext.Session.GetString("AlertOnError") ?? "false";
+}
+
+@section PageScripts {
+	<script>
+		// Define alertOnError in the global scope
+		var alertOnError = '@alertOnError' === "true";
+	</script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-base.js")"></script>
+	<script src="@Model.GetVersionedUrl("~/js/pages-common-reportsearch.js")"></script>
+}
+
+<div class="card mb-3">
+	<h5 class="card-header">Roleplay Reports</h5>
+	@if (Model.History.Count() == 0)
+	{
+		<div class="card-body">
+			<div>
+				<p>You currently have no assigned roleplays. When your coach assigns a roleplay to you, it will appear here. If you are not working with a coach, feel free to explore the 'Public Scenarios' page to find a roleplay that best matches your interests and learning goals.</p>
+			</div>
+		</div>
+	}
+	else
+	{
+		<div class="card-body">
+			<div>
+				<div class="col-12">
+					<div class="col-12 col-sm-6 col-lg-4">
+						<label for="searchTextbox" class="form-label">Search:</label>
+						<input type="search" class="form-control" placeholder="search text" id="reportsSearchTextbox" />
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+	<div class="card table-responsive">
+	<table class="datatables-users table border-top dataTable no-footer dtr-column collapsed" id="roleplayReportsTable" aria-describedby="DataTables_Table_0_info" >
+		<thead>
+			<tr>
+				<th class="sorting" aria-label="Coach">Coach</th>
+				<th class="sorting" aria-label="Module">Module</th>
+				<th class="sorting" aria-label="Actions">Date</th>
+				<th class="sorting" aria-label="Actions">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var report in Model.History)
+			{
+				<tr>
+					<td>
+						<div class="d-flex justify-content-start align-items-center user-name">
+							<div class="avatar-wrapper">
+								<div class="avatar avatar-sm me-3">
+									<img src="data:image/png;base64,@report.ModuleAssignment.Coach.ProfileImage" alt="Avatar" class="rounded-circle">
+								</div>
+							</div>
+							<div class="d-flex flex-column">
+								<span class="fw-semibold">@report.ModuleAssignment.Coach.FirstName @report.ModuleAssignment.Coach.LastName</span>
+								<small class="text-muted">@report.ModuleAssignment.Coach.Email</small>
+							</div>
+						</div>
+					</td>
+					<td><span>@report.ModuleAssignment.Module.Title</span></td>
+					<td><span>@DateTime.Parse(report.InteractionStats.InteractionEndTime).ToLocalTime().ToShortDateString()</span></td>
+					<td>
+						<!-- Actions (e.g., View Details) -->
+						<div>
+							<button type="button" class="btn rounded-pill btn-label-primary" title="View Report" onclick="viewReportDetails('@report.Id')">
+								<span class="tf-icons bx bx-detail"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+</div>
